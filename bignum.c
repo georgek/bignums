@@ -11,6 +11,8 @@
 
 #include "bignum.h"
 
+/* internal functions */
+
 static void _bignum_add2(BigNum *res, BigNum *left, SHORT_INT_T right);
 static void _bignum_sub2(BigNum *res, BigNum *left, SHORT_INT_T right);
 static void _bignum_mul2(BigNum *res, BigNum *left, SHORT_INT_T right);
@@ -18,15 +20,7 @@ static void _bignum_div2(BigNum *q, SHORT_INT_T *r, BigNum *left, SHORT_INT_T ri
 
 static void _bignum_double_alloc(BigNum *bignum);
 
-int bignum_length(BigNum p)
-{
-     return p.length;
-}
-
-int bignum_is_neg(BigNum p)
-{
-     return p.neg;
-}
+/* initialisation functions */
 
 void bignum_init(BigNum *p)
 {
@@ -92,6 +86,8 @@ void bignum_alloc_zero(BigNum *p, int length)
      p->digits = malloc(sizeof(SHORT_INT_T)*length);
 }
 
+/* utility functions */
+
 void bignum_free(BigNum *p)
 {
      free(p->digits);
@@ -148,10 +144,33 @@ void bignum_copy(BigNum *d, BigNum *s)
      bignum_free(&old_d);
 }
 
+int bignum_length(BigNum p)
+{
+     return p.length;
+}
+
+/* logocal operations */
+
+int bignum_is_neg(BigNum p)
+{
+     return p.neg;
+}
+
 int bignum_is_zero(BigNum u)
 {
      return 0 == u.length;
 }
+
+int bignum_is_one(BigNum u)
+{
+     return 1 == u.length && 1 == *(u.digits);
+}
+
+/* arithmetic */
+
+
+
+/* internal */
 
 static void _bignum_double_alloc(BigNum *bignum)
 {

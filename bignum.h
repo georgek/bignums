@@ -46,6 +46,7 @@ typedef struct bignum
      SHORT_INT_T *digits;
 } BigNum;
 
+/* initialisation functions */
 /* makes a new zero bignum */
 void bignum_init(BigNum *p);
 /* makes a new bignum from a string, returns pointer to array */
@@ -55,16 +56,17 @@ void bignum_init_int(BigNum *p, SHORT_INT_T n);
 /* makes a new bignum of a given length initialised to 0 */
 void bignum_alloc_zero(BigNum *p, int length);
 
+/* utility functions */
 void bignum_free(BigNum *p);
-
 void bignum_print(BigNum p);
-
 void bignum_copy(BigNum *d, BigNum *s);
-
 int bignum_length(BigNum p);
 
 /* logical operations */
 int bignum_is_neg(BigNum p);
+int bignum_is_zero(BigNum u);
+int bignum_is_one(BigNum u);
+
 int bignum_equal(BigNum left, BigNum right);
 int bignum_lt(BigNum left, BigNum right);
 int bignum_gt(BigNum left, BigNum right);
@@ -89,11 +91,5 @@ void bignum_gcd(BigNum *gcd, BigNum *u, BigNum *v);
 void bignum_gcd2(BigNum *gcd, BigNum *u, BigNum *v);
 /* least common multiple */
 void bignum_lcm(BigNum *lcm, BigNum *u, BigNum *v);
-
-/* other */
-/* returns true is bignum is equal to zero */
-int bignum_is_zero(BigNum u);
-/* true if bignum is equal to one */
-int bignum_is_one(BigNum u);
 
 #endif /* _BIGNUM_H_ */
