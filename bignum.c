@@ -13,6 +13,8 @@
 
 /* internal functions */
 
+static int _bignum_cmp(BigNum left, BigNum right);
+
 static void _bignum_add2(BigNum *res, BigNum *left, SHORT_INT_T right);
 static void _bignum_sub2(BigNum *res, BigNum *left, SHORT_INT_T right);
 static void _bignum_mul2(BigNum *res, BigNum *left, SHORT_INT_T right);
@@ -187,15 +189,93 @@ int bignum_is_one(BigNum u)
 
 int bignum_equal(BigNum left, BigNum right)
 {
-     int i, eq;
+     return left.length == right.length &&
+          left.neg == right.neg &&
+          _bignum_cmp(left,right) == 0;
+}
 
-     eq = left.length == right.length;
-
-     for (i = 0; eq && i < left.length; ++i) {
-          eq = left.digits[i] == right.digits[i];
+int bignum_lt(BigNum left, BigNum right)
+{
+     switch (left.neg - right.neg) {
+     case 1:                    /* left neg, right pos */
+          return 1;
+     case 0:                    /* same signs */
+          switch ((left.length>right.length)-(left.length<right.length)) {
+          case 1:               /* left longer than right (result depends on
+                                 * sign) */
+               return left.neg;
+          case 0:               /* same length */
+               /* flip result if both are negative */
+               return _bignum_cmp(left,right)-(left.neg<<1) == -1;
+          case -1:              /* right longer than left */
+               return !left.neg;
+          }
+     case -1:                   /* left pos, right neg */
+          return 0;
      }
-     
-     return eq;
+}
+
+int bignum_gt(BigNum left, BigNum right)
+{
+     switch (left.neg - right.neg) {
+     case 1:                    /* left neg, right pos */
+          return 0;
+     case 0:                    /* same signs */
+          switch ((left.length>right.length)-(left.length<right.length)) {
+          case 1:               /* left longer than right (result depends on
+                                 * sign) */
+               return !left.neg;
+          case 0:               /* same length */
+               /* flip result if both are negative */
+               return _bignum_cmp(left,right)+(left.neg<<1) == 1;
+          case -1:              /* right longer than left */
+               return left.neg;
+          }
+     case -1:                   /* left pos, right neg */
+          return 1;
+     }
+}
+
+int bignum_lte(BigNum left, BigNum right)
+{
+     switch (left.neg - right.neg) {
+     case 1:                    /* left neg, right pos */
+          return 1;
+     case 0:                    /* same signs */
+          switch ((left.length>right.length)-(left.length<right.length)) {
+          case 1:               /* left longer than right (result depends on
+                                 * sign) */
+               return left.neg;
+          case 0:               /* same length */
+               /* flip result if both are negative */
+               return _bignum_cmp(left,right)-(left.neg<<1) <= 0;
+          case -1:              /* right longer than left */
+               return !left.neg;
+          }
+     case -1:                   /* left pos, right neg */
+          return 0;
+     }
+}
+
+int bignum_gte(BigNum left, BigNum right)
+{
+     switch (left.neg - right.neg) {
+     case 1:                    /* left neg, right pos */
+          return 0;
+     case 0:                    /* same signs */
+          switch ((left.length>right.length)-(left.length<right.length)) {
+          case 1:               /* left longer than right (result depends on
+                                 * sign) */
+               return !left.neg;
+          case 0:               /* same length */
+               /* flip result if both are negative */
+               return _bignum_cmp(left,right)+(left.neg<<1) >= 0;
+          case -1:              /* right longer than left */
+               return left.neg;
+          }
+     case -1:                   /* left pos, right neg */
+          return 1;
+     }
 }
 
 /* arithmetic */
@@ -206,6 +286,18 @@ void bignum_negate(BigNum *p)
 }
 
 /* internal */
+
+/* this does a three way compare on bignums of the same length (unsigned) */
+static int _bignum_cmp(BigNum left, BigNum right)
+{
+     int i, cmp;
+
+     cmp = 0;
+     for (i = left.length - 1; !cmp && i >= 0; --i) {
+          cmp = (left.digits[i] > right.digits[i]) - (left.digits[i] < right.digits[i]);
+     }
+     return cmp;
+}
 
 static void _bignum_double_alloc(BigNum *bignum)
 {

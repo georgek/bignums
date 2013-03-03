@@ -48,6 +48,7 @@ int main(int argc, char *argv[])
           }
           printf("%s\n", input_line);
           bignum_init_string(&tbn1, input_line);
+          bignum_init_string(&tbn2, input_line);
           bignum_init_int(&tbn2, -12);
           
           printf("tbn1: ");
@@ -55,6 +56,17 @@ int main(int argc, char *argv[])
           printf("tbn2: ");
           bignum_print(tbn2);
           printf("equal? %d\n", bignum_equal(tbn1,tbn2));
+          printf("tbn1 < tbn2? %d\n", bignum_lt(tbn1,tbn2));
+          printf("tbn2 < tbn1? %d\n", bignum_lt(tbn2,tbn1));
+          printf("tbn1 > tbn2? %d\n", bignum_gt(tbn1,tbn2));
+          printf("tbn2 > tbn1? %d\n", bignum_gt(tbn2,tbn1));
+          printf("tbn1 <= tbn2? %d\n", bignum_lte(tbn1,tbn2));
+          printf("tbn2 <= tbn1? %d\n", bignum_lte(tbn2,tbn1));
+          printf("tbn1 >= tbn2? %d\n", bignum_gte(tbn1,tbn2));
+          printf("tbn2 >= tbn1? %d\n", bignum_gte(tbn2,tbn1));
+          /* printf("gt? %d\n", bignum_gt(tbn1,tbn2)); */
+          /* printf("lte? %d\n", bignum_lte(tbn1,tbn2)); */
+          /* printf("gte? %d\n", bignum_gte(tbn1,tbn2)); */
           ++lineno;
      }
      free(input_line);
