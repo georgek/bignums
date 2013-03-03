@@ -129,6 +129,9 @@ void bignum_print(BigNum p)
           }
           ++i;
      }
+     if (bignum_is_neg(p)) {
+          printf("-");
+     }
      for (i = i-1; i >= 0; --i) {
           printf("%s", chunks[i]);
      }
