@@ -78,6 +78,17 @@ void bignum_init_string(BigNum *bignum, char *string)
      }
 }
 
+void bignum_init_int(BigNum *p, int n)
+{
+     unsigned y;
+     p->length = n != 0;
+     p->max_length = DEF_NUM_WORDS;
+     p->neg = n < 0;
+     p->digits = malloc(sizeof(SHORT_INT_T)*p->max_length);
+     y = ~(~0u>>1) & n ? ~0 : 0; /* ie. y = n >> word_length (signed) */
+     p->digits[0] = (n ^ y) - y; /* absolute value of n */
+}
+
 void bignum_alloc_zero(BigNum *p, int length)
 {
      p->length = 0;

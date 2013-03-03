@@ -32,7 +32,7 @@
 #define WORD_LENGTH 16
 
 /* number of words that bignums start with */
-#define DEF_NUM_WORDS 2
+#define DEF_NUM_WORDS 8
 
 /* length is the actual number of digits used by the bignum, by definition
  * zero uses zero digits. max_length is the actual length allocated currently
@@ -52,7 +52,7 @@ void bignum_init(BigNum *p);
 /* makes a new bignum from a string, returns pointer to array */
 void bignum_init_string(BigNum *p, char *string);
 /* make new bignum from integer */
-void bignum_init_int(BigNum *p, SHORT_INT_T n);
+void bignum_init_int(BigNum *p, int n);
 /* makes a new bignum of a given length initialised to 0 */
 void bignum_alloc_zero(BigNum *p, int length);
 
