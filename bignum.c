@@ -11,10 +11,10 @@
 
 #include "bignum.h"
 
-static void _add_bignums2(BigNum *res, BigNum *left, SHORT_INT_T right);
-static void _sub_bignums2(BigNum *res, BigNum *left, SHORT_INT_T right);
-static void _mul_bignums2(BigNum *res, BigNum *left, SHORT_INT_T right);
-static void _div_bignums2(BigNum *q, SHORT_INT_T *r, BigNum *left, SHORT_INT_T right);
+static void _bignum_add2(BigNum *res, BigNum *left, SHORT_INT_T right);
+static void _bignum_sub2(BigNum *res, BigNum *left, SHORT_INT_T right);
+static void _bignum_mul2(BigNum *res, BigNum *left, SHORT_INT_T right);
+static void _bignum_div2(BigNum *q, SHORT_INT_T *r, BigNum *left, SHORT_INT_T right);
 
 static void _bignum_double_alloc(BigNum *bignum);
 
@@ -28,7 +28,7 @@ int bignum_is_neg(BigNum p)
      return p.neg;
 }
 
-void init_bignum(BigNum *p)
+void bignum_init(BigNum *p)
 {
      p->length = 0;
      p->max_length = 0;
@@ -36,7 +36,7 @@ void init_bignum(BigNum *p)
      p->digits = NULL;
 }
 
-void init_bignum_string(BigNum *bignum, char *string)
+void bignum_init_string(BigNum *bignum, char *string)
 {
      int str_length = strlen(string);
      char *segbeg, *segend, t;
@@ -79,12 +79,12 @@ void init_bignum_string(BigNum *bignum, char *string)
           t = *segend;
           *segend = '\0';
           dig = strtoul(segbeg, NULL, 10);
-          _mul_bignums2(bignum, bignum, GRPOW10);
-          _add_bignums2(bignum, bignum, dig);
+          _bignum_mul2(bignum, bignum, GRPOW10);
+          _bignum_add2(bignum, bignum, dig);
      }
 }
 
-void alloc_zero_bignum(BigNum *p, int length)
+void bignum_alloc_zero(BigNum *p, int length)
 {
      p->length = 0;
      p->max_length = length;
@@ -92,19 +92,19 @@ void alloc_zero_bignum(BigNum *p, int length)
      p->digits = malloc(sizeof(SHORT_INT_T)*length);
 }
 
-void free_bignum(BigNum *p)
+void bignum_free(BigNum *p)
 {
      free(p->digits);
 }
 
-void print_bignum(BigNum p)
+void bignum_print(BigNum p)
 {
      BigNum w;
      int i,j,l,n;
      char **chunks;
      SHORT_INT_T r;
 
-     init_bignum(&w);
+     bignum_init(&w);
      bignum_copy(&w, &p);
 
      /* array that will be big enough to contain all the GRPOW10 digits */
@@ -114,7 +114,7 @@ void print_bignum(BigNum p)
 
      i = 0;
      while (!bignum_is_zero(w)) {
-          _div_bignums2(&w, &r, &w, GRPOW10);
+          _bignum_div2(&w, &r, &w, GRPOW10);
           chunks[i] = malloc(sizeof(char)*GRPOW10DIGS+1);
           n = sprintf(chunks[i], "%u", r);
           /* pad with zeros */
@@ -145,7 +145,7 @@ void bignum_copy(BigNum *d, BigNum *s)
      for (i = 0; i < s->length; ++i) {
           d->digits[i] = s->digits[i];
      }
-     free_bignum(&old_d);
+     bignum_free(&old_d);
 }
 
 int bignum_is_zero(BigNum u)
@@ -162,7 +162,7 @@ static void _bignum_double_alloc(BigNum *bignum)
 
 /* these functions are unsigned and don't do any memory management (they
  * assume the result has enough space already) */
-static void _add_bignums2(BigNum *res, BigNum *left, SHORT_INT_T right)
+static void _bignum_add2(BigNum *res, BigNum *left, SHORT_INT_T right)
 {
      unsigned long t, k;
      unsigned int i;
@@ -183,7 +183,7 @@ static void _add_bignums2(BigNum *res, BigNum *left, SHORT_INT_T right)
      }
 }
 
-static void _sub_bignums2(BigNum *res, BigNum *left, SHORT_INT_T right)
+static void _bignum_sub2(BigNum *res, BigNum *left, SHORT_INT_T right)
 {
      unsigned long t, k;
      unsigned int i;
@@ -203,7 +203,7 @@ static void _sub_bignums2(BigNum *res, BigNum *left, SHORT_INT_T right)
      }
 }
 
-static void _mul_bignums2(BigNum *res, BigNum *left, SHORT_INT_T right)
+static void _bignum_mul2(BigNum *res, BigNum *left, SHORT_INT_T right)
 {
      unsigned long t, k;
      unsigned int i;
@@ -223,7 +223,7 @@ static void _mul_bignums2(BigNum *res, BigNum *left, SHORT_INT_T right)
      }
 }
 
-static void _div_bignums2(BigNum *q, SHORT_INT_T *r, BigNum *left, SHORT_INT_T right)
+static void _bignum_div2(BigNum *q, SHORT_INT_T *r, BigNum *left, SHORT_INT_T right)
 {
      int k, i;
      unsigned t;

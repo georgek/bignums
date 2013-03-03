@@ -51,9 +51,9 @@ int main(int argc, char *argv[])
                break;
           }
           printf("%s\n", input_line);
-          init_bignum_string(&testbignum, input_line);
+          bignum_init_string(&testbignum, input_line);
           printf("testbignum.length: %u, max: %u\n", testbignum.length, testbignum.max_length);
-          print_bignum(testbignum);
+          bignum_print(testbignum);
           ++lineno;
      }
      free(input_line);

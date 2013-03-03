@@ -47,17 +47,17 @@ typedef struct bignum
 } BigNum;
 
 /* makes a new zero bignum */
-void init_bignum(BigNum *p);
+void bignum_init(BigNum *p);
 /* makes a new bignum from a string, returns pointer to array */
-void init_bignum_string(BigNum *p, char *string);
+void bignum_init_string(BigNum *p, char *string);
 /* make new bignum from integer */
-void init_bignum_int(BigNum *p, SHORT_INT_T n);
+void bignum_init_int(BigNum *p, SHORT_INT_T n);
 /* makes a new bignum of a given length initialised to 0 */
-void alloc_zero_bignum(BigNum *p, int length);
+void bignum_alloc_zero(BigNum *p, int length);
 
-void free_bignum(BigNum *p);
+void bignum_free(BigNum *p);
 
-void print_bignum(BigNum p);
+void bignum_print(BigNum p);
 
 void bignum_copy(BigNum *d, BigNum *s);
 
@@ -72,25 +72,23 @@ int bignum_lte(BigNum left, BigNum right);
 int bignum_gte(BigNum left, BigNum right);
 
 /* arithmetic */
-void negate_bignum(BigNum *p);
-void add_bignums(BigNum *res, BigNum *left, BigNum *right);
-void sub_bignums(BigNum *res, BigNum *left, BigNum *right);
-void mul_bignums(BigNum *res, BigNum *left, BigNum *right);
-void mul_bignums2(BigNum *res, BigNum *left, SHORT_INT_T right);
-void div_bignums(BigNum *q, BigNum *r, BigNum left, BigNum *right);
-void div_bignums2(BigNum *q, SHORT_INT_T *r, BigNum *left, SHORT_INT_T right);
+void bignum_negate(BigNum *p);
+void bignum_add(BigNum *res, BigNum *left, BigNum *right);
+void bignum_sub(BigNum *res, BigNum *left, BigNum *right);
+void bignum_mul(BigNum *res, BigNum *left, BigNum *right);
+void bignum_div(BigNum *q, BigNum *r, BigNum left, BigNum *right);
 
-void bn_power(BigNum *res, BigNum *p, SHORT_INT_T power);
+void bignum_power(BigNum *res, BigNum *p, SHORT_INT_T power);
 
-void half_bignum(BigNum *res, BigNum *u);
-void double_bignum(BigNum *res, BigNum *u);
+void bignum_half(BigNum *res, BigNum *u);
+void bignum_double(BigNum *res, BigNum *u);
 
 /* greatest common divisor - binary method */
-void gcd(BigNum *gcd, BigNum *u, BigNum *v);
+void bignum_gcd(BigNum *gcd, BigNum *u, BigNum *v);
 /* greatest common divisor - Euclid's method */
-void gcd2(BigNum *gcd, BigNum *u, BigNum *v);
+void bignum_gcd2(BigNum *gcd, BigNum *u, BigNum *v);
 /* least common multiple */
-void lcm(BigNum *lcm, BigNum *u, BigNum *v);
+void bignum_lcm(BigNum *lcm, BigNum *u, BigNum *v);
 
 /* other */
 /* returns true is bignum is equal to zero */
