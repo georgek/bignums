@@ -60,7 +60,7 @@ void bignum_alloc_zero(BigNum *p, int length);
 void bignum_free(BigNum *p);
 void bignum_print(BigNum p);
 void bignum_copy(BigNum *d, BigNum *s);
-int bignum_length(BigNum p);
+unsigned bignum_length(BigNum p);
 
 /* logical operations */
 int bignum_is_neg(BigNum p);

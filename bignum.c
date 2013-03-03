@@ -149,7 +149,7 @@ void bignum_copy(BigNum *d, BigNum *s)
      bignum_free(&old_d);
 }
 
-int bignum_length(BigNum p)
+unsigned bignum_length(BigNum p)
 {
      return p.length;
 }
