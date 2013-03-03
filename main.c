@@ -36,11 +36,7 @@ int main(int argc, char *argv[])
             ULONG_MAX, ULONG_MAX,
             USHRT_MAX, USHRT_MAX);
 
-     long int testbig = 0xfffffffff;
-     int testsml = testbig;
-     printf("big: %lx, sml: %x\n", testbig, testsml);
-
-     BigNum testbignum;
+     BigNum tbn1, tbn2;
 
      /* user input prompt */
      while (1) {
@@ -51,9 +47,14 @@ int main(int argc, char *argv[])
                break;
           }
           printf("%s\n", input_line);
-          bignum_init_string(&testbignum, input_line);
-          printf("testbignum.length: %u, max: %u\n", testbignum.length, testbignum.max_length);
-          bignum_print(testbignum);
+          bignum_init_string(&tbn1, input_line);
+          bignum_init_int(&tbn2, -12);
+          
+          printf("tbn1: ");
+          bignum_print(tbn1);
+          printf("tbn2: ");
+          bignum_print(tbn2);
+          printf("equal? %d\n", bignum_equal(tbn1,tbn2));
           ++lineno;
      }
      free(input_line);
