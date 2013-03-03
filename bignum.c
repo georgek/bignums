@@ -171,9 +171,25 @@ int bignum_is_one(BigNum u)
      return 1 == u.length && 1 == *(u.digits);
 }
 
+int bignum_equal(BigNum left, BigNum right)
+{
+     int i, eq;
+
+     eq = left.length == right.length;
+
+     for (i = 0; eq && i < left.length; ++i) {
+          eq = left.digits[i] == right.digits[i];
+     }
+     
+     return eq;
+}
+
 /* arithmetic */
 
-
+void bignum_negate(BigNum *p)
+{
+     p->neg = !p->neg;
+}
 
 /* internal */
 
