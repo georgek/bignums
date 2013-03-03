@@ -310,8 +310,8 @@ static void _bignum_double_alloc(BigNum *bignum)
  * assume the result has enough space already) */
 static void _bignum_add2(BigNum *res, BigNum *left, SHORT_INT_T right)
 {
-     unsigned long t, k;
-     unsigned int i;
+     unsigned t, k;
+     int i;
 
      i=0;
      res->digits[i] = left->digits[i] + right;
@@ -331,8 +331,8 @@ static void _bignum_add2(BigNum *res, BigNum *left, SHORT_INT_T right)
 
 static void _bignum_sub2(BigNum *res, BigNum *left, SHORT_INT_T right)
 {
-     unsigned long t, k;
-     unsigned int i;
+     unsigned t, k;
+     int i;
 
      i=0;
      res->digits[i] = left->digits[i] - right;
@@ -351,8 +351,8 @@ static void _bignum_sub2(BigNum *res, BigNum *left, SHORT_INT_T right)
 
 static void _bignum_mul2(BigNum *res, BigNum *left, SHORT_INT_T right)
 {
-     unsigned long t, k;
-     unsigned int i;
+     unsigned t, k;
+     int i;
 
      k=0;
      for (i=0; i < left->length; ++i) {
