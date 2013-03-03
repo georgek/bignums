@@ -100,6 +100,11 @@ void bignum_print(BigNum p)
      char **chunks;
      SHORT_INT_T r;
 
+     if (bignum_is_zero(p)) {
+          printf("0\n");
+          return;
+     }
+
      bignum_init(&w);
      bignum_copy(&w, &p);
 
