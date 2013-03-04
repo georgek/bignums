@@ -10,6 +10,7 @@
 #include <readline/history.h>
 
 #include "bignum.h"
+#include "integer.h"
 
 char *rl_gets(int lineno);
 void initialise_readline();
@@ -64,6 +65,10 @@ int main(int argc, char *argv[])
           printf("tbn2 <= tbn1? %d\n", bignum_lte(tbn2,tbn1));
           printf("tbn1 >= tbn2? %d\n", bignum_gte(tbn1,tbn2));
           printf("tbn2 >= tbn1? %d\n", bignum_gte(tbn2,tbn1));
+          bignum_nadd(&tbn1, &tbn1, &tbn1);
+          printf("doubled: ");
+          bignum_print(tbn1);
+          printf("\n");
           /* printf("gt? %d\n", bignum_gt(tbn1,tbn2)); */
           /* printf("lte? %d\n", bignum_lte(tbn1,tbn2)); */
           /* printf("gte? %d\n", bignum_gte(tbn1,tbn2)); */
