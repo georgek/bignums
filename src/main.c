@@ -65,9 +65,16 @@ int main(int argc, char *argv[])
           printf("tbn2 <= tbn1? %d\n", bignum_lte(tbn2,tbn1));
           printf("tbn1 >= tbn2? %d\n", bignum_gte(tbn1,tbn2));
           printf("tbn2 >= tbn1? %d\n", bignum_gte(tbn2,tbn1));
-          bignum_nadd(&tbn1, &tbn1, &tbn1);
+          bignum_copy(&tbn2, &tbn1);
+          bignum_nadd(&tbn2, &tbn1, &tbn1);
           printf("doubled: ");
-          bignum_print(tbn1);
+          bignum_print(tbn2);
+          bignum_nsub(&tbn2, &tbn2, &tbn1);
+          printf("\nback: ");
+          bignum_print(tbn2);
+          bignum_nsub(&tbn2, &tbn2, &tbn2);
+          printf("\nshould be zero: ");
+          bignum_print(tbn2);
           printf("\n");
           /* printf("gt? %d\n", bignum_gt(tbn1,tbn2)); */
           /* printf("lte? %d\n", bignum_lte(tbn1,tbn2)); */
