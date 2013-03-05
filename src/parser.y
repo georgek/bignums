@@ -127,10 +127,14 @@ int main (int argc, char *argv[])
 
      initialise_readline();
 
-     printf("Integrator.\n"
-            "Enter an expression of the form <rational function>,<var>\n"
-            "to integrate <rational function> wrt <var> (x by default).\n"
-            "Type quit, or enter an EOF (Ctrl-D) to quit.\n");
+     /* limits */
+     printf("These are the limits:\n"
+            "UINT_MAX:  %20u : %16x\n"
+            "ULONG_MAX: %20lu : %16lx\n"
+            "USHRT_MAX: %20hu : %16hx\n",
+            UINT_MAX, UINT_MAX,
+            ULONG_MAX, ULONG_MAX,
+            USHRT_MAX, USHRT_MAX);
 
      /* user input prompt */
      while (1) {
