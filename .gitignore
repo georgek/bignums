@@ -40,7 +40,7 @@ autom4te.cache/
 /missing
 /src/Makefile
 /src/Makefile.in
-/src/int.c
+/src/alg.c
 /src/parser.c
 /src/parser.h
 /stamp-h1
