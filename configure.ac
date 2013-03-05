@@ -9,6 +9,8 @@ AM_INIT_AUTOMAKE([-Wall -Werror])
 
 # check for programs: C compiler
 AC_PROG_CC
+AC_PROG_LEX
+AC_PROG_YACC
 
 # check for GNU readline
 AC_CHECK_LIB([readline], [readline])

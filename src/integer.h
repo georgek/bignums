@@ -34,12 +34,16 @@ int bignum_lte(BigNum left, BigNum right);
 int bignum_gte(BigNum left, BigNum right);
 
 /* arithmetic */
+void bignum_negate(BigNum *p);
+
 void bignum_add(BigNum *res, BigNum *left, BigNum *right);
 void bignum_sub(BigNum *res, BigNum *left, BigNum *right);
 void bignum_mul(BigNum *res, BigNum *left, BigNum *right);
 void bignum_div(BigNum *q, BigNum *r, BigNum *left, BigNum *right);
+void bignum_divq(BigNum *q, BigNum *left, BigNum *right);
+void bignum_divr(BigNum *r, BigNum *left, BigNum *right);
 
-void bignum_power(BigNum *res, BigNum *p, unsigned power);
+void bignum_power(BigNum *res, BigNum *base, BigNum *exp);
 
 void bignum_half(BigNum *res, BigNum *u);
 void bignum_double(BigNum *res, BigNum *u);
