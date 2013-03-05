@@ -12,7 +12,6 @@ void bignum_nmul2(BigNum *res, BigNum *left, SHORT_INT_T right)
      unsigned t, k;
      int i;
 
-     res->neg = 0;
      k=0;
      for (i=0; i < left->length; ++i) {
           t = left->digits[i] * right + k;

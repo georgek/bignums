@@ -8,7 +8,6 @@ void bignum_nadd(BigNum *res, BigNum *left, BigNum *right)
      unsigned t, k;
      int i;
 
-     res->neg = 0;
      res->length = left->length > right->length ? left->length : right->length;
      k = 0;
      for (i = 0; i < res->length; ++i) {
@@ -27,7 +26,6 @@ void bignum_nadd2(BigNum *res, BigNum *left, SHORT_INT_T right)
      unsigned k;
      int i;
 
-     res->neg = 0;
      i=0;
      res->digits[i] = left->digits[i] + right;
      k = (res->digits[i] < right);    /* did overflow happen? */

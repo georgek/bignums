@@ -12,8 +12,6 @@ void bignum_ndiv2(BigNum *q, SHORT_INT_T *r, BigNum *left, SHORT_INT_T right)
      int k, i;
      unsigned t;
 
-     q->neg = 0;
-     
      k = 0;
      q->length = left->length;
      /* start with most significant digit, which may be zero */
