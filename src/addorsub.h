@@ -23,6 +23,17 @@ void FUNCTION (BigNum *res, BigNum *left, BigNum *right)
 {
      BigNum *t;
 
+     /* check for zeros */
+     if (bignum_is_zero(*left)) {
+          bignum_copy(res, right);
+          res->neg = VARIATION res->neg;
+          return;
+     }
+     if (bignum_is_zero(*right)) {
+          bignum_copy(res, left);
+          return;
+     }
+
      /* ensure that left->length >= right->length */
      if (left->length < right->length) {
           t = left;
