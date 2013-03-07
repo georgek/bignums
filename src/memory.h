@@ -3,7 +3,9 @@
 #ifndef H_MEMORY
 #define H_MEMORY
 
-void bignum_copy(BigNum *d, BigNum *s);
+/* returns a fresh new copy of p */
+BigNum bignum_copy(BigNum *p);
+
 unsigned bignum_length(BigNum p);
 
 /* doubles the max_length of the bignum, keeping the value */

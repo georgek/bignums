@@ -3,16 +3,18 @@
 #include "bignum.h"
 #include "memory.h"
 
-void bignum_copy(BigNum *d, BigNum *s)
+BigNum bignum_copy(BigNum *p)
 {
+     BigNum q;
      int i;
-     d->length = s->length;
-     d->max_length = s->max_length;
-     d->neg = s->neg;
-     d->digits = malloc(sizeof(SHORT_INT_T)*d->max_length);
-     for (i = 0; i < s->length; ++i) {
-          d->digits[i] = s->digits[i];
+     q.length = p->length;
+     q.max_length = p->max_length;
+     q.neg = p->neg;
+     q.digits = malloc(sizeof(SHORT_INT_T)*q.max_length);
+     for (i = 0; i < p->length; ++i) {
+          q.digits[i] = p->digits[i];
      }
+     return q;
 }
 
 unsigned bignum_length(BigNum p)
