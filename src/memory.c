@@ -5,8 +5,10 @@
 
 void bignum_copy(BigNum *d, BigNum *s)
 {
-     BigNum old_d = *d;
      int i;
+     if (d == s) {
+          return;
+     }
      d->length = s->length;
      d->max_length = s->max_length;
      d->neg = s->neg;
@@ -14,7 +16,6 @@ void bignum_copy(BigNum *d, BigNum *s)
      for (i = 0; i < s->length; ++i) {
           d->digits[i] = s->digits[i];
      }
-     bignum_free(&old_d);
 }
 
 unsigned bignum_length(BigNum p)
