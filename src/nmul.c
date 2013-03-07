@@ -1,12 +1,50 @@
 /* natural number multiplication */
 
+#include <stdlib.h>
 #include <stdio.h>
 
 #include "natural.h"
 
 void bignum_nmul(BigNum *res, BigNum *left, BigNum *right)
 {
-     
+     BigNum *ores = NULL, nres = *res;
+     int i,j;
+     SHORT_INT_T t,k;
+
+     if (res == left || res == right) {
+          /* need to setup new bignum so we don't clobber left or right */
+          ores = res;
+
+          nres.length = 0;
+          nres.max_length = left->length + right->length;
+          nres.digits = malloc(sizeof(SHORT_INT_T)*nres.max_length);
+     }
+
+     for (i = 0; i < (left->length + right->length); ++i) {
+          nres.digits[i] = 0;
+     }
+
+     for (j = 0; j < right->length; ++j) {
+          k = 0;
+          for (i = 0; i < left->length; ++i) {
+               t = k;
+               dig_mulandadd(&k, &t, left->digits[i], right->digits[j]);
+               nres.digits[i+j] += t;
+               k += (nres.digits[i+j] < t); /* might have overflowed */
+          }
+          nres.digits[j+left->length] = k;
+     }
+
+     /* find actual length of nres */
+     for (i = i + j - 1; i >= 0; --i) {
+          if (nres.digits[i] != 0) {
+               nres.length = i + 1;
+               break;
+          }
+     }
+
+     *res = nres;
+     bignum_free(ores);
 }
 
 void bignum_nmul2(BigNum *res, BigNum *left, SHORT_INT_T right)
