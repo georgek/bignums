@@ -44,9 +44,6 @@ void bignum_divr(BigNum *r, BigNum *left, BigNum *right);
 
 void bignum_power(BigNum *res, BigNum *base, BigNum *exp);
 
-void bignum_half(BigNum *res, BigNum *u);
-void bignum_double(BigNum *res, BigNum *u);
-
 /* greatest common divisor - binary method */
 void bignum_gcd(BigNum *gcd, BigNum *u, BigNum *v);
 /* greatest common divisor - Euclid's method */
