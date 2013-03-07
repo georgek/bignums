@@ -124,6 +124,7 @@ int main (int argc, char *argv[])
 {
      int parseret = 0;
      unsigned lineno = 1;
+     SHORT_INT_T t1, t2, ures, lres, du, dl, di, q, r;
 
      initialise_readline();
 
@@ -135,6 +136,16 @@ int main (int argc, char *argv[])
             UINT_MAX, UINT_MAX,
             ULONG_MAX, ULONG_MAX,
             USHRT_MAX, USHRT_MAX);
+     t1 = 100;
+     t2 = 1000;
+     lres = 12;
+     dig_mulandadd(&ures, &lres, t1, t2);
+     printf("%u * %u = (%u, %u)\n", t1, t2, ures, lres);
+     du = 1;
+     dl = 1000;
+     di = 100;
+     dig_div(&q, &r, du, dl, di);
+     printf("(%u, %u)/%u = %u : %u\n", du, dl, di, q, r);
 
      /* user input prompt */
      while (1) {

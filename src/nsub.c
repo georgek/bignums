@@ -6,25 +6,27 @@
 
 void bignum_nsub(BigNum *res, BigNum *left, BigNum *right)
 {
-     unsigned t, k, res_length;
+     SHORT_INT_T t, k;
+     unsigned res_length;
      int i;
 
      k = 0;
      res_length = 0;
      for (i = 0; i < right->length; ++i) {
           t = left->digits[i] - right->digits[i] - k;
+          k = (k ? t >= left->digits[i] : t > left->digits[i]);
           res->digits[i] = t;
-          k = (~(~0u>>1) & t) != 0;
-          if (res->digits[i] != 0) {
-               res_length = i + 1;
+          
+          if (res->digits[i]) {
+               ++res_length;
           }
      }
      for (; i < left->length; ++i) {
           t = left->digits[i] - k;
+          k = (t > left->digits[i]);
           res->digits[i] = t;
-          k = (~(~0u>>1) & t) != 0;
-          if (res->digits[i] != 0) {
-               res_length = i + 1;
+          if (res->digits[i]) {
+               ++res_length;
           }
      }
      res->length = res_length;
@@ -32,7 +34,7 @@ void bignum_nsub(BigNum *res, BigNum *left, BigNum *right)
 
 void bignum_nsub2(BigNum *res, BigNum *left, SHORT_INT_T right)
 {
-     unsigned k;
+     SHORT_INT_T k;
      int i;
 
      i=0;
@@ -40,13 +42,9 @@ void bignum_nsub2(BigNum *res, BigNum *left, SHORT_INT_T right)
      res->digits[i] = left->digits[i] - right;
      for (i=1; i < left->length; ++i) {
           res->digits[i] = left->digits[i] - k;
-          k = (RADIX-1 == res->digits[i]);
+          k = (~0u == res->digits[i]); /* overflow? */
      }
-     if (!res->digits[i-1]) {
-          res->length = left->length - 1;
-     }
-     else {
-          res->length = left->length;
-     }
+     /* reduce length if most significant digit is zero */
+     res->length = left->length - (0 == res->digits[i-1]);
 }
 

@@ -5,14 +5,14 @@
 
 void bignum_nadd(BigNum *res, BigNum *left, BigNum *right)
 {
-     unsigned t, k;
+     SHORT_INT_T t, k;
      int i;
 
      k = 0;
      for (i = 0; i < right->length; ++i) {
           t = left->digits[i] + right->digits[i] + k;
+          k = (k ? t <= left->digits[i] : t < left->digits[i]);
           res->digits[i] = t;   /* ie. t & 0xFFFF */
-          k = t >> WORD_LENGTH;
      }
      for (; i < left->length; ++i) {
           res->digits[i] = left->digits[i] + k;
@@ -24,7 +24,7 @@ void bignum_nadd(BigNum *res, BigNum *left, BigNum *right)
 
 void bignum_nadd2(BigNum *res, BigNum *left, SHORT_INT_T right)
 {
-     unsigned k;
+     SHORT_INT_T k;
      int i;
 
      i=0;
