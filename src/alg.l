@@ -12,7 +12,7 @@
 #include "parser.h"
 %}
 
-UINT 0|[1-9][0-9]*
+UINT [0-9]*
 
 %%
 

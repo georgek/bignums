@@ -17,21 +17,32 @@ void bignum_init(BigNum *p)
 
 void bignum_init_string(BigNum *bignum, char *string)
 {
-     int str_length = strlen(string);
+     int str_length;
      char *segbeg, *segend, t;
      SHORT_INT_T dig;
-
+     
      /* set sign */
      if (*string == '-') {
           /* negative */
           bignum->neg = 1;
           /* advance one character */
           string += 1;
-          str_length -= 1;
      }
      else {
           bignum->neg = 0;
      }
+     /* skip over leading zeros */
+     while (*string == '0') {
+          string += 1;
+     }
+     if (*string == '\0') {
+          bignum->length = 0;
+          bignum->max_length = 0;
+          bignum->digits = NULL;
+          return;
+     }
+
+     str_length = strlen(string);
 
      /* allocate memory for bignum */
      bignum->max_length = DEF_NUM_WORDS;
@@ -43,6 +54,7 @@ void bignum_init_string(BigNum *bignum, char *string)
      t = *segend;
      *segend = '\0';
      *(bignum->digits) = strtoul(segbeg, NULL, 10);
+
      bignum->length = 1;
 
      /* multiply and add remaining chunks */

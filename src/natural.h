@@ -1,10 +1,18 @@
 /* Fast functions for natural numbers
  *
- * These functions don't do any memory management (in particular, the result
- * bignum must have enough room for the result), they ignore signs (everything
- * is positive), the length of the left operand must be greater than or equal
- * to the right operand and, for subtraction and division, the magnitude of
- * the left operand must be greater than the right. */
+ * These functions don't check their inputs at all and expect the following:
+ * 
+ * * res must have enough room for the actual result (amount depends on op),
+ * 
+ * * inputs must be nonzero,
+ *
+ * * length of the left operand must be greater than or equal to length of
+ *   right
+ *
+ * * for subtraction and division, magnitude of left operand must be greater
+ *   than the right
+ *
+ * Also, signs are not touched. */
 
 #ifndef H_NATURAL
 #define H_NATURAL
