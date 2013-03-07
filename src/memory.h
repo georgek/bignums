@@ -13,4 +13,6 @@ void bignum_double_alloc(BigNum *bignum);
  * greater than or equal to the old one */
 void bignum_realloc(BigNum *bignum, unsigned max_length);
 
+void bignum_free(BigNum *p);
+
 #endif /* H_MEMORY */

@@ -19,7 +19,6 @@ void bignum_init_int(BigNum *p, int n);
 void bignum_alloc_zero(BigNum *p, int length);
 
 /* utility functions */
-void bignum_free(BigNum *p);
 void bignum_print(BigNum p);
 
 /* logical operations */

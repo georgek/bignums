@@ -35,3 +35,9 @@ void bignum_realloc(BigNum *bignum, unsigned max_length)
      bignum->digits = realloc(bignum->digits, sizeof(SHORT_INT_T)*bignum->max_length);
 }
 
+void bignum_free(BigNum *p)
+{
+     if (p) {
+          free(p->digits);
+     }
+}

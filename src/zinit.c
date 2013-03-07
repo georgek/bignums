@@ -94,7 +94,3 @@ void bignum_alloc_zero(BigNum *p, int length)
      p->digits = malloc(sizeof(SHORT_INT_T)*length);
 }
 
-void bignum_free(BigNum *p)
-{
-     free(p->digits);
-}
