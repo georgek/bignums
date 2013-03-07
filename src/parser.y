@@ -52,6 +52,7 @@ statement:      expression
                         {
                              bignum_print($1);
                              printf("\n");
+                             bignum_free(&$1);
                              return 0;
                         }
         |       error
