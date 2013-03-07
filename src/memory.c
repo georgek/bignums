@@ -6,9 +6,6 @@
 void bignum_copy(BigNum *d, BigNum *s)
 {
      int i;
-     if (d == s) {
-          return;
-     }
      d->length = s->length;
      d->max_length = s->max_length;
      d->neg = s->neg;
