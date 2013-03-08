@@ -18,7 +18,7 @@
 #define PRINT_SI(var) printf("%u", var)
 
 /* radix of full words */
-#define RADIX   0x100000000
+/* #define RADIX   0x100000000 */
 /* radix of half words */
 #define SRADIX  0x10000
 /* greatest power of ten that can fit in a word */
