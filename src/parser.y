@@ -11,6 +11,7 @@
 #include <readline/history.h>
 
 #include "bignum.h"
+#include "natural.h"
 #include "integer.h"
 
 int yylex(void);
@@ -52,6 +53,10 @@ statement:      expression
                         {
                              bignum_print($1);
                              printf("\n");
+                             printf("lshifted: ");
+                             bignum_lshift(&$1, 32);
+                             printf("digs: %u\n", $1.length);
+                             bignum_print($1);
                              bignum_free(&$1);
                              return 0;
                         }
@@ -147,7 +152,7 @@ int main (int argc, char *argv[])
      di = 100;
      dig_div(&q, &r, du, dl, di);
      printf("(%u, %u)/%u = %u : %u\n", du, dl, di, q, r);
-
+     
      /* user input prompt */
      while (1) {
           input_line = rl_gets(lineno);

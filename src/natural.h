@@ -30,6 +30,10 @@ void bignum_nmul2(BigNum *res, BigNum *left, SHORT_INT_T right);
 void bignum_ndiv(BigNum *q, BigNum *r, BigNum *left, BigNum *right);
 void bignum_ndiv2(BigNum *q, SHORT_INT_T *r, BigNum *left, SHORT_INT_T right);
 
+/* binary shifts */
+void bignum_lshift(BigNum *p, unsigned count);
+void bignum_rshift(BigNum *p, unsigned count);
+
 /* full word multiplication and division */
 
 /* does full word * full word => 2 full word multiplication */
@@ -43,6 +47,7 @@ void dig_div(SHORT_INT_T *q, SHORT_INT_T *r,
              SHORT_INT_T uleft, unsigned lleft,
              SHORT_INT_T right);
 
+/* number of leading zeros function */
 int nlz(unsigned x);
 
 /* three way compare (assumes same length) */
