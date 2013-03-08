@@ -54,8 +54,10 @@ statement:      expression
                              bignum_print($1);
                              printf("\n");
                              printf("lshifted: ");
-                             bignum_lshift(&$1, 32);
-                             printf("digs: %u\n", $1.length);
+                             bignum_lshift(&$1, 30);
+                             bignum_print($1);
+                             printf("rshifted: ");
+                             bignum_rshift(&$1, 30);
                              bignum_print($1);
                              bignum_free(&$1);
                              return 0;
