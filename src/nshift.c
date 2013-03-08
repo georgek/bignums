@@ -29,9 +29,10 @@ void bignum_lshift(BigNum *p, unsigned count)
 
      for (i = p->length - 1; i > w_count; --i) {
           p->digits[i] = p->digits[i-w_count] << b_count;
-          if (b_count) {
-               p->digits[i] += p->digits[i-w_count-1] >> (WORD_LENGTH - b_count);
-          }
+          /* If b_count is zero, nothing changes here. The rhs of the & is to
+           * make it work for computers that do mod WORD_LENGTH shifts */
+          p->digits[i] += (p->digits[i-w_count-1] >> (WORD_LENGTH - b_count))
+               & (-(signed)b_count >> WORD_LENGTH-1);
      }
      p->digits[i] = p->digits[i-w_count] << b_count;
      /* fill in zeros */
