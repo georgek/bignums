@@ -67,8 +67,9 @@ void bignum_nmul2(BigNum *res, BigNum *left, SHORT_INT_T right)
      }
 }
 
+/* this does (ures, lres) <- left * right + lres */
 void dig_mulandadd(SHORT_INT_T *ures, SHORT_INT_T *lres,
-             SHORT_INT_T left, SHORT_INT_T right) 
+                   SHORT_INT_T left, SHORT_INT_T right) 
 {
      SHORT_INT_T masku, maskl, t, k;
 
@@ -100,6 +101,7 @@ void dig_mulandadd(SHORT_INT_T *ures, SHORT_INT_T *lres,
      *ures += k << WORD_LENGTH/2;
 }
 
+/* this does (ures, lres) <- left * right */
 void dig_mul(SHORT_INT_T *ures, SHORT_INT_T *lres,
              SHORT_INT_T left, SHORT_INT_T right)
 {
