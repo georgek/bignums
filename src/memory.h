@@ -3,6 +3,8 @@
 #ifndef H_MEMORY
 #define H_MEMORY
 
+#include "bignum.h"
+
 /* returns a fresh new copy of p */
 BigNum bignum_copy(BigNum *p);
 
