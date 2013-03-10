@@ -61,6 +61,7 @@ void bignum_div(BigNum *q, BigNum *r, BigNum *left, BigNum *right)
      if (right->length == 1) {
           bignum_ndiv2(&nq, &sr, left, right->digits[0]);
           if (q) {
+               bignum_free(q);
                q->length = nq.length;
                q->max_length = nq.max_length;
                q->digits = nq.digits;
@@ -73,6 +74,7 @@ void bignum_div(BigNum *q, BigNum *r, BigNum *left, BigNum *right)
      else {
           bignum_ndiv(&nq, r, left, right);
           if (q) {
+               bignum_free(q);
                q->length = nq.length;
                q->max_length = nq.max_length;
                q->digits = nq.digits;
