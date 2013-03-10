@@ -21,6 +21,11 @@ void bignum_alloc_zero(BigNum *p, int length);
 /* utility functions */
 void bignum_print(BigNum p);
 
+/* assignment */
+void bignum_set(BigNum *p, BigNum *q);
+void bignum_set_int(BigNum *p, SHORT_INT_T q);
+void bignum_set_str(BigNum *p, char *string);
+
 /* logical operations */
 int bignum_is_neg(BigNum p);
 int bignum_is_zero(BigNum u);
