@@ -6,10 +6,15 @@
 
 void bignum_mul(BigNum *res, BigNum *left, BigNum *right)
 {
+     BigNum nr;
      unsigned reslen = left->length + right->length;
-     if (res->max_length < reslen) {
-          bignum_realloc(res, left->length + right->length);
-     }
-     bignum_nmul(res, left, right);
-     res->neg = (left->neg ^ right->neg);
+
+     bignum_alloc_zero(&nr, reslen);
+     
+     bignum_nmul(&nr, left, right);
+     
+     bignum_free(res);
+     res->length = nr.length;
+     res->max_length = nr.max_length;
+     res->digits = nr.digits;
 }
