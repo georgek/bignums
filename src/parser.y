@@ -41,7 +41,7 @@ char* input_line = NULL;        /* line of input from readline */
 %left ','
 %left '+' '-'
 %left '*'
-%left '/'
+%left '/' '%'
 %nonassoc UMINUS UPLUS
 %left '^'
 
@@ -53,12 +53,6 @@ statement:      expression
                         {
                              bignum_print($1);
                              printf("\n");
-                             printf("lshifted: ");
-                             bignum_lshift(&$1, 30);
-                             bignum_print($1);
-                             printf("rshifted: ");
-                             bignum_rshift(&$1, 30);
-                             bignum_print($1);
                              bignum_free(&$1);
                              return 0;
                         }
@@ -97,6 +91,13 @@ expression:     expression '+' expression
                         {
                              bignum_init(&$$);
                              bignum_divq(&$$, &$1, &$3);
+                             bignum_free(&$1);
+                             bignum_free(&$3);
+                        }
+        |       expression '%' expression
+                        {
+                             bignum_init(&$$);
+                             bignum_divr(&$$, &$1, &$3);
                              bignum_free(&$1);
                              bignum_free(&$3);
                         }

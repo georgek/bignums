@@ -30,7 +30,7 @@ UINT [0-9]*
      return QUIT;
 }
 
-[-+*/^(),\n] {
+[-+*/%^(),\n] {
      return *yytext;
 }
 
