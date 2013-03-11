@@ -31,7 +31,8 @@ int bignum_is_neg(BigNum p);
 int bignum_is_zero(BigNum u);
 int bignum_is_one(BigNum u);
 
-int bignum_equal(BigNum left, BigNum right);
+int bignum_eq(BigNum left, BigNum right);
+int bignum_eq_int(BigNum left, SHORT_INT_T right);
 int bignum_lt(BigNum left, BigNum right);
 int bignum_gt(BigNum left, BigNum right);
 int bignum_lte(BigNum left, BigNum right);

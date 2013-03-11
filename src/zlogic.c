@@ -18,11 +18,18 @@ int bignum_is_one(BigNum u)
      return 1 == u.length && 1 == *(u.digits);
 }
 
-int bignum_equal(BigNum left, BigNum right)
+int bignum_eq(BigNum left, BigNum right)
 {
      return left.length == right.length &&
           left.neg == right.neg &&
           bignum_ncmp(left,right) == 0;
+}
+
+int bignum_eq_int(BigNum left, SHORT_INT_T right) 
+{
+     return 1 == left.length &&
+          0 == left.neg &&
+          right == left.digits[0];
 }
 
 int bignum_lt(BigNum left, BigNum right)
