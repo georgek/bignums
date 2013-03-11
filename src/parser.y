@@ -6,6 +6,7 @@
 #include <stdarg.h>
 #include <string.h>
 #include <limits.h>
+#include <time.h>
 
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -27,6 +28,8 @@ void finish_readline();
 void flex_get_rl_input();
 /* history file */
 static const char* history_file = ".gk_history";
+/* clock for timing */
+clock_t time_bef;
 
 char* input_line = NULL;        /* line of input from readline */
 %}
@@ -165,7 +168,9 @@ int main (int argc, char *argv[])
                break;
           }
           flex_get_rl_input();
+          time_bef = clock();
           parseret = yyparse();
+          printf("Time taken: %.2fs\n", (double)(clock() - time_bef)/CLOCKS_PER_SEC);
           if (parseret == 0) {
                /* normal input */
                ++lineno;
