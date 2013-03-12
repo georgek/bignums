@@ -9,9 +9,9 @@
 void bignum_init(BigNum *p)
 {
      p->length = 0;
-     p->max_length = 0;
+     p->max_length = 1;
      p->neg = 0;
-     p->digits = NULL;
+     p->digits = malloc(sizeof(SHORT_INT_T));
 }
 
 void bignum_init_string(BigNum *bignum, char *string)
