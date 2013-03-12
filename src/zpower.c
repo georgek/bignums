@@ -1,7 +1,5 @@
 /* exponentiation */
 
-#include <stdio.h>
-
 #include "bignum.h"
 #include "natural.h"
 #include "integer.h"

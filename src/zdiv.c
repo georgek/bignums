@@ -1,7 +1,6 @@
 /* Integer division. */
 
 #include <stdlib.h>
-#include <stdio.h>
 
 #include "bignum.h"
 #include "natural.h"
@@ -18,7 +17,6 @@ void bignum_div(BigNum *q, BigNum *r, BigNum *left, BigNum *right)
      /* trivial cases */
      if (left->length < right->length) {
           /* left < right */
-          printf("triv1\n");
           if (q) {
                bignum_set(q, 0);
           }
@@ -32,7 +30,6 @@ void bignum_div(BigNum *q, BigNum *r, BigNum *left, BigNum *right)
           
           if (cmp < 0) {
                /* left < right */
-               printf("triv2\n");
                if (q) {
                     bignum_set_int(q, 0);
                }
@@ -43,7 +40,6 @@ void bignum_div(BigNum *q, BigNum *r, BigNum *left, BigNum *right)
           }
           if (cmp == 0) {
                /* left == right */
-               printf("triv3\n");
                if (q) {
                     bignum_set_int(q, 1);
                     q->neg = left->neg ^ right->neg;

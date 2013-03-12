@@ -1,7 +1,6 @@
 /* natural number multiplication */
 
 #include <stdlib.h>
-#include <stdio.h>
 
 #include "natural.h"
 

@@ -1,7 +1,6 @@
 /* natural number division */
 
 #include <stdlib.h>
-#include <stdio.h>
 
 #include "bignum.h"
 #include "natural.h"
