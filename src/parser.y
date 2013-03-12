@@ -30,6 +30,9 @@ void flex_get_rl_input();
 static const char* history_file = ".gk_history";
 /* clock for timing */
 clock_t time_bef;
+int timing = 1;
+void time_fun(void (*fun)(BigNum *, BigNum *, BigNum*), char* name,
+              BigNum *res, BigNum *op1, BigNum *op2);
 
 char* input_line = NULL;        /* line of input from readline */
 %}
@@ -73,35 +76,35 @@ statement:      expression
 expression:     expression '+' expression
                         {
                              bignum_init(&$$);
-                             bignum_add(&$$, &$1, &$3);
+                             time_fun(&bignum_add, "add", &$$, &$1, &$3);
                              bignum_free(&$1);
                              bignum_free(&$3);
                         }
         |       expression '-' expression
                         {
                              bignum_init(&$$);
-                             bignum_sub(&$$, &$1, &$3);
+                             time_fun(&bignum_sub, "sub", &$$, &$1, &$3);
                              bignum_free(&$1);
                              bignum_free(&$3);
                         }
         |       expression '*' expression
                         {
                              bignum_init(&$$);
-                             bignum_mul(&$$, &$1, &$3);
+                             time_fun(&bignum_mul, "mul", &$$, &$1, &$3);
                              bignum_free(&$1);
                              bignum_free(&$3);
                         }
         |       expression '/' expression
                         {
                              bignum_init(&$$);
-                             bignum_divq(&$$, &$1, &$3);
+                             time_fun(&bignum_divq, "divq", &$$, &$1, &$3);
                              bignum_free(&$1);
                              bignum_free(&$3);
                         }
         |       expression '%' expression
                         {
                              bignum_init(&$$);
-                             bignum_divr(&$$, &$1, &$3);
+                             time_fun(&bignum_divr, "divr", &$$, &$1, &$3);
                              bignum_free(&$1);
                              bignum_free(&$3);
                         }
@@ -117,7 +120,7 @@ expression:     expression '+' expression
         |       expression '^' expression
                         {
                              bignum_init(&$$);
-                             bignum_power(&$$, &$1, &$3);
+                             time_fun(&bignum_power, "power", &$$, &$1, &$3);
                              bignum_free(&$1);
                              bignum_free(&$3);
                         }
@@ -169,9 +172,9 @@ int main (int argc, char *argv[])
                break;
           }
           flex_get_rl_input();
-          time_bef = clock();
+          /* time_bef = clock(); */
           parseret = yyparse();
-          printf("Time taken: %.2fs\n", (double)(clock() - time_bef)/CLOCKS_PER_SEC);
+          /* printf("Time taken: %.2fs\n", (double)(clock() - time_bef)/CLOCKS_PER_SEC); */
           if (parseret == 0) {
                /* normal input */
                ++lineno;
@@ -192,6 +195,18 @@ int main (int argc, char *argv[])
      finish_readline();
      return 0;
 }
+
+void time_fun(void (*fun)(BigNum *, BigNum *, BigNum*), char *name,
+              BigNum *res, BigNum *op1, BigNum *op2)
+{
+     clock_t time_bef = clock();
+     (*fun)(res, op1, op2);
+     if (timing) {
+          printf("Time taken for %s: %.2fs\n", name,
+                 (double)(clock() - time_bef)/CLOCKS_PER_SEC);
+     }
+}
+
 
 /* Read a string, and return a pointer to it.  Returns NULL on EOF. */
 char *rl_gets (int lineno)
