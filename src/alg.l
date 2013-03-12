@@ -26,7 +26,6 @@ UINT [0-9]*
 }
 
 <<EOF>> {
-     printf("\n");
      return QUIT;
 }
 

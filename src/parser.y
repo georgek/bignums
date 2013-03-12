@@ -54,6 +54,7 @@ char* input_line = NULL;        /* line of input from readline */
 
 statement:      expression
                         {
+                             printf("\n");
                              bignum_print($1);
                              printf("\n");
                              bignum_free(&$1);
