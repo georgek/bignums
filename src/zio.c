@@ -12,8 +12,8 @@ void bignum_print(BigNum p)
 {
      BigNum w;
      int i,j,l,n;
-     char **chunks;
-     SHORT_INT_T r;
+     char *str;
+     SHORT_INT_T r, qr;
 
      if (bignum_is_zero(p)) {
           printf("0\n");
@@ -38,36 +38,32 @@ void bignum_print(BigNum p)
       * So:
       * */
      l = (p.length*WORD_LENGTH + 1)/(GRPOW10DIGSB2 - 1) + 1;
-     
-     chunks = calloc(l, sizeof(char*));
 
-     i = 0;
+     /* one long string */
+     str = malloc(sizeof(char*) * GRPOW10DIGS * l + 1);
+
+     i = GRPOW10DIGS * l;
+     str[i] = '\0';
+
+     i = i-1;
      while (!bignum_is_zero(w)) {
           bignum_ndiv2(&w, &r, &w, GRPOW10);
-          chunks[i] = malloc(sizeof(char)*GRPOW10DIGS+1);
-          n = sprintf(chunks[i], "%u", r);
-          /* pad with zeros */
-          if (n < GRPOW10DIGS && !bignum_is_zero(w)) {
-               for (j = GRPOW10DIGS; n >= 0; --j, --n) {
-                    chunks[i][j] = chunks[i][n];
-               }
-               for (; j >= 0; --j) {
-                    chunks[i][j] = '0';
-               }
+
+          for (j = 0; j < GRPOW10DIGS; ++j, --i) {
+               qr = r/10;
+               str[i] = '0' + (char)(r - qr*10);
+               r = qr;
           }
-          ++i;
      }
      
      if (bignum_is_neg(p)) {
           printf("-");
      }
-     for (i = i-1; i >= 0; --i) {
-          printf("%s", chunks[i]);
-          free(chunks[i]);
-     }
-     printf("\n");
+     /* skip over leading zeros */
+     for (i = i+1; '0' == str[i]; ++i);
+     puts(str+i);
 
      bignum_free(&w);
-     free(chunks);
+     free(str);
 }
 

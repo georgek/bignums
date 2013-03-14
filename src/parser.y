@@ -58,7 +58,12 @@ char* input_line = NULL;        /* line of input from readline */
 statement:      expression
                         {
                              printf("\n");
+                             clock_t time_bef = clock();
                              bignum_print($1);
+                             if (timing) {
+                                  printf("Time taken for %s: %.2fs\n", "print",
+                                         (double)(clock() - time_bef)/CLOCKS_PER_SEC);
+                             }
                              printf("\n");
                              bignum_free(&$1);
                              return 0;
