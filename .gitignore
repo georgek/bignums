@@ -46,3 +46,9 @@ autom4te.cache/
 /stamp-h1
 /ylwrap
 /INSTALL
+/compile
+/config.guess
+/config.sub
+/profile
+/src/generic/.dirstamp
+/src/x86_64/.dirstamp

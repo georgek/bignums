@@ -14,6 +14,7 @@
 #include "bignum.h"
 #include "natural.h"
 #include "integer.h"
+#include "test.h"
 
 int yylex(void);
 
@@ -167,6 +168,7 @@ int main (int argc, char *argv[])
      di = 100;
      dig_div(&q, &r, du, dl, di);
      printf("(%u, %u)/%u = %u : %u\n", du, dl, di, q, r);
+     printf("Testing asm: %u + %u = %u\n", dl, dl, testfun(dl));
      
      /* user input prompt */
      while (1) {
