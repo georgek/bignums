@@ -52,3 +52,4 @@ autom4te.cache/
 /profile
 /src/generic/.dirstamp
 /src/x86_64/.dirstamp
+/src/arm/.dirstamp
