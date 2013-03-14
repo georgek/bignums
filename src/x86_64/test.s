@@ -1,15 +1,15 @@
-        # function to test linking
-        .globl  testfun
-        .type   testfun,@function
+              # function to test linking
+              # unsigned testfun(unsigned)
+              .Global testfun
+              .Type testfun,@function
 testfun:
-        pushq   %rbp
-        movq    %rsp, %rbp
+              pushq %rbp            # push old base pointer to stack
+              movq  %rsp, %rbp      # copy stack pointer to base pointer
 
-        movq    %rdi, %rax
-        addq    %rax, %rax
+              movq  %rdi, %rax      # copy first argument to rax
+              addq  %rax, %rax      # double rax (return value)
 
 end_testfun:
-        movq    %rbp, %rsp
-        popq    %rbp
-        ret
-        
+              movq  %rbp, %rsp      # move stack pointer back
+              popq  %rbp            # restore original base pointer
+              ret                   # pop value from top of stack and go there
