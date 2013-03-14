@@ -23,15 +23,18 @@ AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
 
 TEST_OBJ='generic/test.$(OBJEXT)'
+NDIV_OBJ='generic/ndiv.$(OBJEXT)'
 case $host in
   arm*-*-linux*)
     TEST_OBJ='arm/test.$(OBJEXT)'
     ;;
   x86_64-*-linux*)
     TEST_OBJ='x86_64/test.$(OBJEXT)'
+    NDIV_OBJ='x86_64/ndiv.$(OBJEXT)'
     ;;
 esac
 AC_SUBST([TEST_OBJ])
+AC_SUBST([NDIV_OBJ])
 
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile src/Makefile])
