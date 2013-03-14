@@ -13,6 +13,6 @@ bignums_SOURCES = alg.l parser.y bignum.h natural.h nadd.c nsub.c nmul.c	\
 			zadd.c zsub.c zmul.c zdiv.c zpower.c zlogic.c zasgn.c	\
 			memory.h memory.c test.h
 
-EXTRA_bignums_SOURCES = generic/test.c x86_64/test.s
+EXTRA_bignums_SOURCES = generic/test.c x86_64/test.s arm/test.s
 bignums_LDADD = $(TEST_OBJ)
 bignums_DEPENDENCIES = $(TEST_OBJ)

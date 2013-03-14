@@ -25,7 +25,7 @@ AC_CANONICAL_HOST
 TEST_OBJ='generic/test.$(OBJEXT)'
 case $host in
   arm*-*-linux*)
-    TEST_OBJ='generic/test.$(OBJEXT)'
+    TEST_OBJ='arm/test.$(OBJEXT)'
     ;;
   x86_64-*-linux*)
     TEST_OBJ='x86_64/test.$(OBJEXT)'
