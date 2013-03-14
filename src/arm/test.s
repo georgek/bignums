@@ -1,10 +1,10 @@
-        @ ARM function definition
-        @ unsigned testfun(unsigned)
-        .align  2               @ Align to word boundary
-        .arm                    @ This is ARM code
-        .global testfun
-        .type   testfun STT_FUNC
+              @ ARM function definition
+              @ unsigned testfun(unsigned)
+              .Align 2              @ Align to word boundary
+              .Arm                  @ This is ARM code
+              .Global testfun
+              .Type testfun STT_FUNC
 testfun:
-        add     r0, r0, r0
+              add   r0, r0, r0      @ double arg and return it
 end_testfun:
-        bx      lr
+              bx    lr              @ return
