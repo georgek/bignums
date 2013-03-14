@@ -193,8 +193,7 @@ again2:
      *q = q1*b + q0;
 }
 
-/* portable (but slow) way to count leading zeros (doesn't matter as it's used
- * only once in div below) */
+/* portable (but slow) way to count leading zeros */
 int nlz(unsigned x)
 {
      unsigned s = ~(~0u>>1);
