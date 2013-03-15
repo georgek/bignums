@@ -1,7 +1,7 @@
 /* Logic for natural numbers. */
 
-#include "bignum.h"
-#include "natural.h"
+#include "../bignum.h"
+#include "../natural.h"
 
 int bignum_ncmp(BigNum left, BigNum right)
 {

@@ -2,9 +2,9 @@
 
 #include <stdlib.h>
 
-#include "bignum.h"
-#include "natural.h"
-#include "memory.h"
+#include "../bignum.h"
+#include "../natural.h"
+#include "../memory.h"
 
 void bignum_ndiv(BigNum *q, BigNum *r, BigNum *left, BigNum *right)
 {

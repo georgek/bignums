@@ -1,7 +1,7 @@
 /* binary shifts */
 
-#include "bignum.h"
-#include "integer.h"
+#include "../bignum.h"
+#include "../integer.h"
 
 void bignum_lshift(BigNum *p, unsigned count)
 {

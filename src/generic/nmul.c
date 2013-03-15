@@ -2,7 +2,7 @@
 
 #include <stdlib.h>
 
-#include "natural.h"
+#include "../natural.h"
 
 void bignum_nmul(BigNum *res, BigNum *left, BigNum *right)
 {

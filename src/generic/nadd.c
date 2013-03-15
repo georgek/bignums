@@ -1,7 +1,7 @@
 /* natural number addition */
 
-#include "bignum.h"
-#include "natural.h"
+#include "../bignum.h"
+#include "../natural.h"
 
 void bignum_nadd(BigNum *res, BigNum *left, BigNum *right)
 {

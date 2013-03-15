@@ -1,6 +1,6 @@
 /* natural number subtraction (might be merged with addition) */
 
-#include "natural.h"
+#include "../natural.h"
 
 /* left >= right */
 
