@@ -14,7 +14,7 @@ bignums_SOURCES = alg.l parser.y bignum.h natural.h nadd.c nsub.c nmul.c	\
                   test.h
 
 EXTRA_bignums_SOURCES = generic/test.c x86_64/test.s arm/test.s	\
-                        generic/ndiv.c x86_64/ndiv.c arm/ndiv.c
+                        generic/ndiv.c x86_64/ndiv.c
 
 bignums_LDADD = $(TEST_OBJ) $(NDIV_OBJ)
 bignums_DEPENDENCIES = $(TEST_OBJ) $(NDIV_OBJ)
