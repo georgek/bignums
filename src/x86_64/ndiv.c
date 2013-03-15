@@ -75,15 +75,15 @@ void bignum_ndiv(BigNum *q, BigNum *r, BigNum *left, BigNum *right)
           k=0,k2=0;
           for (i =0; i < n; ++i) {
                t = k;
-               /* (k, t)_b <- v_(i) * qhat */
+               /* (k, t)_b <- v_(i) * qhat + k*/
                dig_mulandadd(&k, &t, rightn.digits[i], qhat);
-               t2 = leftn.digits[i] - t - k2;
-               k2 = (k2 ? t2 >= leftn.digits[i] : t2 > leftn.digits[i]);
-               leftn.digits[i] = t2;
+               t2 = leftn.digits[i+j] - t - k2;
+               k2 = (k2 ? t2 >= leftn.digits[i+j] : t2 > leftn.digits[i+j]);
+               leftn.digits[i+j] = t2;
           }
-          t2 = leftn.digits[i] - k - k2;
-          k2 = (k2 ? t2 >= leftn.digits[i] : t2 > leftn.digits[i]);
-          leftn.digits[i] = t2;
+          t2 = leftn.digits[i+j] - k - k2;
+          k2 = (k2 ? t2 >= leftn.digits[i+j] : t2 > leftn.digits[i+j]);
+          leftn.digits[i+j] = t2;
 
           nq.digits[j] = qhat;
           /* if result of mul and sub was negative we need to add back */
@@ -92,7 +92,7 @@ void bignum_ndiv(BigNum *q, BigNum *r, BigNum *left, BigNum *right)
                k = 0;
                for (i = 0; i < n; ++i) {
                     t = leftn.digits[i+j] + rightn.digits[i] + k;
-                    k = (k ? t <= leftn.digits[i] : t < leftn.digits[i]);
+                    k = (k ? t <= leftn.digits[i+j] : t < leftn.digits[i+j]);
                     leftn.digits[i+j] = t;
                }
                leftn.digits[i+j] = leftn.digits[i+j] + k;
