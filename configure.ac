@@ -24,6 +24,11 @@ AC_CANONICAL_HOST
 
 TEST_OBJ='generic/test.$(OBJEXT)'
 NDIV_OBJ='generic/ndiv.$(OBJEXT)'
+NADD_OBJ='generic/nadd.$(OBJEXT)'
+NLOGIC_OBJ='generic/nlogic.$(OBJEXT)'
+NMUL_OBJ='generic/nmul.$(OBJEXT)'
+NSHIFT_OBJ='generic/nshift.$(OBJEXT)'
+NSUB_OBJ='generic/nsub.$(OBJEXT)'
 case $host in
   arm*-*-linux*)
     TEST_OBJ='arm/test.$(OBJEXT)'
@@ -35,6 +40,11 @@ case $host in
 esac
 AC_SUBST([TEST_OBJ])
 AC_SUBST([NDIV_OBJ])
+AC_SUBST([NADD_OBJ])
+AC_SUBST([NLOGIC_OBJ])
+AC_SUBST([NMUL_OBJ])
+AC_SUBST([NSHIFT_OBJ])
+AC_SUBST([NSUB_OBJ])
 
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile src/Makefile])
