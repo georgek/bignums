@@ -46,14 +46,17 @@ void bignum_ndiv(BigNum *q, BigNum *r, BigNum *left, BigNum *right)
           /* dig_div(&qhat, &rhat, */
           /*         leftn.digits[j+n], leftn.digits[j+n-1], */
           /*         rightn.digits[n-1]); */
-          asm volatile ("div %[d]"
-                        : [q] "=a" (qhat), [r] "=d" (rhat)
-                        : [u] "d" (leftn.digits[j+n]), [l] "a" (leftn.digits[j+n-1]),
-                          [d] "Q" (rightn.digits[n-1])
-               );
-          if (qhat == ~0 && rhat == ~0) {
-               /* qhat overflowed, set qhat <- b-1 (already done) and rhat <-
+          if (leftn.digits[j+n] < rightn.digits[n-1]) {
+               asm volatile ("div %[d]"
+                             : [q] "=a" (qhat), [r] "=d" (rhat)
+                             : [u] "d" (leftn.digits[j+n]), [l] "a" (leftn.digits[j+n-1]),
+                               [d] "Q" (rightn.digits[n-1])
+                    );
+          }
+          else {
+               /* qhat would overflow, set qhat <- b-1 and rhat <-
                 * u_(j+n-1) */
+               qhat = ~0u;
                rhat = rightn.digits[n-1];
           }
      again:
