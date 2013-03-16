@@ -8,6 +8,11 @@ AM_YFLAGS = -d
 
 bin_PROGRAMS = bignums
 
+GCCFLAGS = -Wall -Werror
+bignums_CPPFLAGS = $(GCCFLAGS)
+bignums_CFLAGS = $(GCCFLAGS)
+bignums_CCASFLAGS = $(GCCFLAGS)
+
 bignums_SOURCES = alg.l parser.y bignum.h natural.h integer.h zinit.c zio.c	\
                   addorsub.h zadd.c zsub.c zmul.c zdiv.c zpower.c zlogic.c	\
                   zasgn.c memory.h memory.c test.h

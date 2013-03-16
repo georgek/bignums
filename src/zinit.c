@@ -5,6 +5,8 @@
 
 #include "bignum.h"
 #include "integer.h"
+#include "natural.h"
+#include "memory.h"
 
 void bignum_init(BigNum *p)
 {

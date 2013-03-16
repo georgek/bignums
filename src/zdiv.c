@@ -5,6 +5,7 @@
 #include "bignum.h"
 #include "natural.h"
 #include "integer.h"
+#include "memory.h"
 
 /* either q or r (or both) can actually be NULL */
 void bignum_div(BigNum *q, BigNum *r, BigNum *left, BigNum *right)

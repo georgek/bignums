@@ -5,11 +5,12 @@ dnl 2010 Computer science final year project
 
 # prelude
 AC_INIT([bignums], [1.0], [g.kettleborough@uea.ac.uk])
-AM_INIT_AUTOMAKE([-Wall -Werror subdir-objects])
 AC_CONFIG_SRCDIR([src/bignum.h])
+AM_INIT_AUTOMAKE([-Wall -Werror subdir-objects])
+
+AM_SILENT_RULES([yes])
 
 # check for programs: C compiler, assembler, lex, yacc
-AC_PROG_CC
 AM_PROG_CC_C_O
 AM_PROG_AS
 AC_PROG_LEX

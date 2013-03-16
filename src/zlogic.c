@@ -1,6 +1,7 @@
 /* Logic functions for integers. */
 
 #include "bignum.h"
+#include "natural.h"
 #include "integer.h"
 
 int bignum_is_neg(BigNum p)
@@ -47,8 +48,12 @@ int bignum_lt(BigNum left, BigNum right)
                return bignum_ncmp(left,right)-(left.neg<<1) == -1;
           case -1:              /* right longer than left */
                return !left.neg;
+          default:
+               return 0;
           }
      case -1:                   /* left pos, right neg */
+          return 0;
+     default:
           return 0;
      }
 }
@@ -68,9 +73,13 @@ int bignum_gt(BigNum left, BigNum right)
                return bignum_ncmp(left,right)+(left.neg<<1) == 1;
           case -1:              /* right longer than left */
                return left.neg;
+          default:
+               return 0;
           }
      case -1:                   /* left pos, right neg */
           return 1;
+     default:
+          return 0;
      }
 }
 
@@ -89,8 +98,12 @@ int bignum_lte(BigNum left, BigNum right)
                return bignum_ncmp(left,right)-(left.neg<<1) <= 0;
           case -1:              /* right longer than left */
                return !left.neg;
+          default:
+               return 0;
           }
      case -1:                   /* left pos, right neg */
+          return 0;
+     default:
           return 0;
      }
 }
@@ -110,8 +123,12 @@ int bignum_gte(BigNum left, BigNum right)
                return bignum_ncmp(left,right)+(left.neg<<1) >= 0;
           case -1:              /* right longer than left */
                return left.neg;
+          default:
+               return 0;
           }
      case -1:                   /* left pos, right neg */
           return 1;
+     default:
+          return 0;
      }
 }

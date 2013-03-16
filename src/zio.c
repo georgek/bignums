@@ -5,13 +5,14 @@
 #include <string.h>
 
 #include "bignum.h"
+#include "natural.h"
 #include "integer.h"
 #include "memory.h"
 
 void bignum_print(BigNum p)
 {
      BigNum w;
-     int i,j,l,n;
+     int i,j,l;
      char *str;
      SHORT_INT_T r, qr;
 

@@ -5,6 +5,7 @@
 #include "bignum.h"
 #include "natural.h"
 #include "integer.h"
+#include "memory.h"
 
 #ifdef BN_OP_zadd
 #define FUNCTION  bignum_add
@@ -22,15 +23,14 @@ Error, need OPERATION_add or OPERATION_sub
 void FUNCTION (BigNum *res, BigNum *left, BigNum *right)
 {
      BigNum *t;
-
      /* check for zeros */
      if (bignum_is_zero(*left)) {
-          bignum_copy(res, right);
+          bignum_set(res, right);
           res->neg = VARIATION res->neg;
           return;
      }
      if (bignum_is_zero(*right)) {
-          bignum_copy(res, left);
+          bignum_set(res, left);
           return;
      }
 

@@ -4,6 +4,7 @@
 
 #include "bignum.h"
 #include "integer.h"
+#include "memory.h"
 
 void bignum_set(BigNum *p, BigNum *q)
 {

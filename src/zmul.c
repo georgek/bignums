@@ -3,6 +3,7 @@
 #include "bignum.h"
 #include "natural.h"
 #include "integer.h"
+#include "memory.h"
 
 void bignum_mul(BigNum *res, BigNum *left, BigNum *right)
 {

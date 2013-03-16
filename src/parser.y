@@ -15,6 +15,7 @@
 #include "natural.h"
 #include "integer.h"
 #include "test.h"
+#include "memory.h"
 
 int yylex(void);
 
@@ -260,9 +261,8 @@ void initialise_readline()
 
 void finish_readline()
 {
-     int n;
      /* write history to file */
-     n = write_history(history_file);
+     write_history(history_file);
      /* trim file */
      history_truncate_file(history_file, 400);
 }
