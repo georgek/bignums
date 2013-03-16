@@ -3,6 +3,16 @@
 #include "bignum.h"
 #include "memory.h"
 
+BigNum bignum_shallow_copy(BigNum *p)
+{
+     BigNum q;
+     q.length = p->length;
+     q.max_length = p->length;
+     q.neg = p->neg;
+     q.digits = p->digits;
+     return q;
+}
+
 BigNum bignum_copy(BigNum *p)
 {
      BigNum q;

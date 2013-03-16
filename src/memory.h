@@ -5,7 +5,9 @@
 
 #include "bignum.h"
 
-/* returns a fresh new copy of p */
+/* returns copy of p with same digit array */
+BigNum bignum_shallow_copy(BigNum *p);
+/* returns copy of p with copied digit array */
 BigNum bignum_copy(BigNum *p);
 
 unsigned bignum_length(BigNum p);
