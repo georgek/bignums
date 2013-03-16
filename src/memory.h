@@ -22,3 +22,7 @@ void bignum_realloc(BigNum *bignum, unsigned max_length);
 void bignum_free(BigNum *p);
 
 #endif /* H_MEMORY */
+
+/* Local Variables: */
+/* mode: c */
+/* End: */

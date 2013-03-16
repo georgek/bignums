@@ -58,3 +58,7 @@ void bignum_gcd2(BigNum *gcd, BigNum *u, BigNum *v);
 void bignum_lcm(BigNum *lcm, BigNum *u, BigNum *v);
 
 #endif /* H_INTEGER */
+
+/* Local Variables: */
+/* mode: c */
+/* End: */

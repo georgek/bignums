@@ -70,3 +70,7 @@ void FUNCTION (BigNum *res, BigNum *left, BigNum *right)
           res->neg = left->neg;
      }
 }
+
+/* Local Variables: */
+/* mode: c */
+/* End: */

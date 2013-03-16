@@ -54,3 +54,7 @@ int nlz(unsigned x);
 int bignum_ncmp(BigNum left, BigNum right);
 
 #endif /* H_NATURAL */
+
+/* Local Variables: */
+/* mode: c */
+/* End: */

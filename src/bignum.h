@@ -46,3 +46,7 @@ typedef struct bignum
 } BigNum;
 
 #endif /* _BIGNUM_H_ */
+
+/* Local Variables: */
+/* mode: c */
+/* End: */
