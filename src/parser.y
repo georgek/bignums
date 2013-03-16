@@ -164,13 +164,13 @@ int main (int argc, char *argv[])
      t2 = 1000;
      lres = 12;
      dig_mulandadd(&ures, &lres, t1, t2);
-     printf("%u * %u = (%u, %u)\n", t1, t2, ures, lres);
+     printf("%lu * %lu = (%lu, %lu)\n", t1, t2, ures, lres);
      du = 1;
      dl = 1000;
      di = 100;
      dig_div(&q, &r, du, dl, di);
-     printf("(%u, %u)/%u = %u : %u\n", du, dl, di, q, r);
-     printf("Testing asm: %u + %u = %u\n", dl, dl, testfun(dl));
+     printf("(%lu, %lu)/%lu = %lu : %lu\n", du, dl, di, q, r);
+     printf("Testing asm: %lu + %lu = %lu\n", dl, dl, testfun(dl));
      
      /* user input prompt */
      while (1) {

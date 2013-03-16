@@ -1,6 +1,6 @@
 /* asm test */
 
-unsigned testfun(unsigned);
+unsigned long testfun(unsigned long);
 
 /* Local Variables: */
 /* mode: c */
