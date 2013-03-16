@@ -36,8 +36,8 @@ void bignum_init_string(BigNum *bignum, char *string)
      }
      if (*string == '\0') {
           bignum->length = 0;
-          bignum->max_length = 0;
-          bignum->digits = NULL;
+          bignum->max_length = 1;
+          bignum->digits = malloc(sizeof(SHORT_INT_T));
           return;
      }
 
