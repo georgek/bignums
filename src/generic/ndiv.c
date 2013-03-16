@@ -49,7 +49,7 @@ void bignum_ndiv(BigNum *q, BigNum *r, BigNum *left, BigNum *right)
           if (qhat == ~0 && rhat == ~0) {
                /* qhat overflowed, set qhat <- b-1 (already done) and rhat <-
                 * u_(j+n-1) */
-               rhat = rightn.digits[n-1];
+               rhat = leftn.digits[j+n-1];
           }
      again:
           /* At this point, qhat < b; now we do the test(s) on v_(n-2). */
