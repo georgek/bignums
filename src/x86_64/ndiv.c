@@ -49,7 +49,8 @@ void bignum_ndiv(BigNum *q, BigNum *r, BigNum *left, BigNum *right)
           if (leftn.digits[j+n] < rightn.digits[n-1]) {
                asm volatile ("div %[d]"
                              : [q] "=a" (qhat), [r] "=d" (rhat)
-                             : [u] "d" (leftn.digits[j+n]), [l] "a" (leftn.digits[j+n-1]),
+                             : [u] "d" (leftn.digits[j+n]),
+                               [l] "a" (leftn.digits[j+n-1]),
                                [d] "Q" (rightn.digits[n-1])
                     );
           }

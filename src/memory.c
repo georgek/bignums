@@ -25,13 +25,15 @@ unsigned bignum_length(BigNum p)
 void bignum_double_alloc(BigNum *bignum)
 {
      bignum->max_length<<=1;
-     bignum->digits = realloc(bignum->digits, sizeof(SHORT_INT_T)*bignum->max_length);
+     bignum->digits = realloc(bignum->digits,
+                              sizeof(SHORT_INT_T)*bignum->max_length);
 }
 
 void bignum_realloc(BigNum *bignum, unsigned max_length)
 {
      bignum->max_length = max_length;
-     bignum->digits = realloc(bignum->digits, sizeof(SHORT_INT_T)*bignum->max_length);
+     bignum->digits = realloc(bignum->digits,
+                              sizeof(SHORT_INT_T)*bignum->max_length);
 }
 
 void bignum_free(BigNum *p)

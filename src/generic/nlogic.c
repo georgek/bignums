@@ -9,7 +9,8 @@ int bignum_ncmp(BigNum left, BigNum right)
 
      cmp = 0;
      for (i = left.length - 1; !cmp && i >= 0; --i) {
-          cmp = (left.digits[i] > right.digits[i]) - (left.digits[i] < right.digits[i]);
+          cmp = (left.digits[i] > right.digits[i])
+               - (left.digits[i] < right.digits[i]);
      }
      return cmp;
 }

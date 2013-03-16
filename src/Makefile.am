@@ -25,7 +25,8 @@ EXTRA_bignums_SOURCES = generic/test.c     x86_64/test.s arm/test.s	\
 			generic/nshift.c \
 			generic/nsub.c
 
-OBJS = $(TEST_OBJ) $(NDIV_OBJ) $(NADD_OBJ) $(NLOGIC_OBJ) $(NMUL_OBJ) $(NSHIFT_OBJ) $(NSUB_OBJ)
+OBJS = $(TEST_OBJ) $(NDIV_OBJ) $(NADD_OBJ) $(NLOGIC_OBJ) $(NMUL_OBJ) \
+       $(NSHIFT_OBJ) $(NSUB_OBJ)
 
 bignums_LDADD = $(OBJS)
 bignums_DEPENDENCIES = $(OBJS)

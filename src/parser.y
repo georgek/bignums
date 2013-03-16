@@ -64,7 +64,8 @@ statement:      expression
                              bignum_print($1);
                              if (timing) {
                                   printf("Time taken for %s: %.2fs\n", "print",
-                                         (double)(clock() - time_bef)/CLOCKS_PER_SEC);
+                                         (double)(clock() - time_bef)
+                                         / CLOCKS_PER_SEC);
                              }
                              printf("\n");
                              bignum_free(&$1);
@@ -182,7 +183,8 @@ int main (int argc, char *argv[])
           flex_get_rl_input();
           /* time_bef = clock(); */
           parseret = yyparse();
-          /* printf("Time taken: %.2fs\n", (double)(clock() - time_bef)/CLOCKS_PER_SEC); */
+          /* printf("Time taken: %.2fs\n", (double)(clock() - time_bef)
+           *                               / CLOCKS_PER_SEC); */
           if (parseret == 0) {
                /* normal input */
                ++lineno;
