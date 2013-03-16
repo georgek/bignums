@@ -21,7 +21,7 @@ EXTRA_bignums_SOURCES = generic/test.c     x86_64/test.s arm/test.s	\
                         generic/ndiv.c     x86_64/ndiv.c \
 			generic/nadd.c \
 			generic/nlogic.c \
-			generic/nmul.c \
+			generic/nmul.c     x86_64/nmul.c \
 			generic/nshift.c \
 			generic/nsub.c
 

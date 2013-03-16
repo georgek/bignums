@@ -37,6 +37,7 @@ case $host in
   x86_64-*-linux*)
     TEST_OBJ='x86_64/test.$(OBJEXT)'
     NDIV_OBJ='x86_64/ndiv.$(OBJEXT)'
+    NMUL_OBJ='x86_64/nmul.$(OBJEXT)'
     ;;
 esac
 AC_SUBST([TEST_OBJ])
