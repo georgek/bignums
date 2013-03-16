@@ -1,4 +1,5 @@
 /* Logic for natural numbers. */
+/* Generic version */
 
 #include "../bignum.h"
 #include "../natural.h"

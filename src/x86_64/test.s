@@ -1,5 +1,6 @@
-              # function to test linking
-              # unsigned testfun(unsigned)
+# function to test linking
+# unsigned testfun(unsigned)
+# x86_64 version
               .Global testfun
               .Type testfun,@function
 testfun:

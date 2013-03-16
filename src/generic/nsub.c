@@ -1,4 +1,5 @@
 /* natural number subtraction (might be merged with addition) */
+/* Generic version */
 
 #include "../natural.h"
 

@@ -1,4 +1,5 @@
 /* natural number division */
+/* x86_64 version */
 
 #include <stdlib.h>
 

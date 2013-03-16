@@ -1,4 +1,5 @@
 /* natural number addition */
+/* Generic version */
 
 #include "../bignum.h"
 #include "../natural.h"

@@ -1,4 +1,5 @@
 /* binary shifts */
+/* Generic version */
 
 #include "../bignum.h"
 #include "../integer.h"

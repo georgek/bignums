@@ -1,4 +1,5 @@
 /* natural number multiplication */
+/* Generic version */
 
 #include <stdlib.h>
 

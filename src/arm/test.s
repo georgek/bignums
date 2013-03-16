@@ -1,5 +1,6 @@
-              @ ARM function definition
-              @ unsigned testfun(unsigned)
+@ ARM function definition
+@ unsigned testfun(unsigned)
+@ ARM version
               .Align 2              @ Align to word boundary
               .Arm                  @ This is ARM code
               .Global testfun
