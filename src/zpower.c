@@ -11,6 +11,11 @@ void bignum_power(BigNum *res, BigNum *base, BigNum *exp)
      SHORT_INT_T mask = ~(~0u >> 1);
      int i;
 
+     if (bignum_is_zero(*exp)) {
+          bignum_set_int(res, 1);
+          return;
+     }
+
      bignum_init(&nres);
      bignum_set(&nres, base);
 
