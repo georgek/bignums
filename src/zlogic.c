@@ -23,7 +23,7 @@ int bignum_eq(BigNum left, BigNum right)
 {
      return left.length == right.length &&
           left.neg == right.neg &&
-          bignum_ncmp(left,right) == 0;
+          bignum_ncmp(left.digits,right.digits,left.length) == 0;
 }
 
 int bignum_eq_int(BigNum left, SHORT_INT_T right) 
@@ -45,7 +45,8 @@ int bignum_lt(BigNum left, BigNum right)
                return left.neg;
           case 0:               /* same length */
                /* flip result if both are negative */
-               return bignum_ncmp(left,right)-(left.neg<<1) == -1;
+               return bignum_ncmp(left.digits,right.digits,left.length)
+                    -(left.neg<<1) == -1;
           case -1:              /* right longer than left */
                return !left.neg;
           default:
@@ -70,7 +71,8 @@ int bignum_gt(BigNum left, BigNum right)
                return !left.neg;
           case 0:               /* same length */
                /* flip result if both are negative */
-               return bignum_ncmp(left,right)+(left.neg<<1) == 1;
+               return bignum_ncmp(left.digits,right.digits,left.length)
+                    +(left.neg<<1) == 1;
           case -1:              /* right longer than left */
                return left.neg;
           default:
@@ -95,7 +97,8 @@ int bignum_lte(BigNum left, BigNum right)
                return left.neg;
           case 0:               /* same length */
                /* flip result if both are negative */
-               return bignum_ncmp(left,right)-(left.neg<<1) <= 0;
+               return bignum_ncmp(left.digits,right.digits,left.length)
+                    -(left.neg<<1) <= 0;
           case -1:              /* right longer than left */
                return !left.neg;
           default:
@@ -120,7 +123,8 @@ int bignum_gte(BigNum left, BigNum right)
                return !left.neg;
           case 0:               /* same length */
                /* flip result if both are negative */
-               return bignum_ncmp(left,right)+(left.neg<<1) >= 0;
+               return bignum_ncmp(left.digits,right.digits,left.length)
+                    +(left.neg<<1) >= 0;
           case -1:              /* right longer than left */
                return left.neg;
           default:

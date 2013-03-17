@@ -32,6 +32,13 @@ unsigned bignum_length(BigNum p)
      return p.length;
 }
 
+void bignum_fix_length(BigNum *p)
+{
+     int i;
+     for (i = p->length - 1; p->digits[i] == 0 && i >= 0; --i);
+     p->length = i + 1;
+}
+
 void bignum_double_alloc(BigNum *bignum)
 {
      bignum->max_length<<=1;

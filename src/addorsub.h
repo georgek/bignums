@@ -49,25 +49,42 @@ void FUNCTION (BigNum *res, BigNum *left, BigNum *right)
           /* different signs */
           if (left->length != right->length) {
                /* so left->length > right->length */
-               bignum_nsub(res, left, right);
+               bignum_nsub(res->digits,
+                           left->digits, left->length,
+                           right->digits, right->length);
+               res->length = left->length;
+               bignum_fix_length(res);
                res->neg = left->neg;
           }
           /* left->length == right->length */
-          else if (bignum_ncmp(*left, *right) < 0) {
+          else if (bignum_ncmp(left->digits, right->digits,
+                        left->length) < 0) {
                /* so left < right*/
-               bignum_nsub(res, right, left);
+               bignum_nsub(res->digits,
+                           right->digits, right->length,
+                           left->digits, left->length);
+               res->length = right->length;
+               bignum_fix_length(res);
                res->neg = VARIATION right->neg;
           }
           else {
                /* so left >= right */
-               bignum_nsub(res, left, right);
+               bignum_nsub(res->digits,
+                           left->digits, left->length,
+                           right->digits, right->length);
+               res->length = left->length;
+               bignum_fix_length(res);
                res->neg = left->neg;
           }
      }
      else {
-          /* same signs */
-          bignum_nadd(res, left, right);
-          res->neg = left->neg;
+         /* same signs */
+         bignum_nadd(res->digits,
+                     left->digits, left->length,
+                     right->digits, right->length);
+         res->length = left->length + 1;
+         bignum_fix_length(res);
+         res->neg = left->neg;
      }
 }
 

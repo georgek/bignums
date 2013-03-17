@@ -11,11 +11,14 @@ void bignum_mul(BigNum *res, BigNum *left, BigNum *right)
      unsigned reslen = left->length + right->length;
 
      bignum_alloc_zero(&nr, reslen);
+     nr.neg = left->neg ^ right->neg;
      
-     bignum_nmul(&nr, left, right);
+     bignum_nmul(nr.digits,
+                 left->digits, left->length,
+                 right->digits, right->length);
+     nr.length = reslen;
+     bignum_fix_length(&nr);
      
      bignum_free(res);
-     res->length = nr.length;
-     res->max_length = nr.max_length;
-     res->digits = nr.digits;
+     *res = bignum_shallow_copy(&nr);
 }

@@ -50,6 +50,9 @@ void bignum_divr(BigNum *r, BigNum *left, BigNum *right);
 
 void bignum_power(BigNum *res, BigNum *base, BigNum *exp);
 
+void bignum_lshift(BigNum *res, BigNum *p, unsigned count);
+void bignum_rshift(BigNum *res, BigNum *p, unsigned count);
+
 /* greatest common divisor - binary method */
 void bignum_gcd(BigNum *gcd, BigNum *u, BigNum *v);
 /* greatest common divisor - Euclid's method */

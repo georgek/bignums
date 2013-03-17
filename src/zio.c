@@ -22,6 +22,7 @@ void bignum_print(BigNum p)
      }
 
      w = bignum_copy(&p);
+     
 
      /* array that will be big enough to contain all the GRPOW10 digits
       *
@@ -48,7 +49,10 @@ void bignum_print(BigNum p)
 
      i = i-1;
      while (!bignum_is_zero(w)) {
-          bignum_ndiv2(&w, &r, &w, GRPOW10);
+          bignum_ndiv2(w.digits, &r,
+                       w.digits, w.length,
+                       GRPOW10);
+          bignum_fix_length(&w);
 
           for (j = 0; j < GRPOW10DIGS; ++j, --i) {
                qr = r/10;

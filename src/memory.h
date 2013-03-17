@@ -12,6 +12,10 @@ BigNum bignum_copy(BigNum *p);
 
 unsigned bignum_length(BigNum p);
 
+/* sets bignum length to a value less than or equal to its current value by
+ * removing leading zeros */
+void bignum_fix_length(BigNum *p);
+
 /* doubles the max_length of the bignum, keeping the value */
 void bignum_double_alloc(BigNum *bignum);
 

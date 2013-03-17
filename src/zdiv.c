@@ -1,6 +1,7 @@
 /* Integer division. */
 
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "bignum.h"
 #include "natural.h"
@@ -19,7 +20,7 @@ void bignum_div(BigNum *q, BigNum *r, BigNum *left, BigNum *right)
      if (left->length < right->length) {
           /* left < right */
           if (q) {
-               bignum_set(q, 0);
+               bignum_set_int(q, 0);
           }
           if (r) {
                bignum_set(r, right);
@@ -27,7 +28,7 @@ void bignum_div(BigNum *q, BigNum *r, BigNum *left, BigNum *right)
           return;
      }
      if (right->length == left->length) {
-          cmp = bignum_ncmp(*left, *right);
+          cmp = bignum_ncmp(left->digits, right->digits, left->length);
           
           if (cmp < 0) {
                /* left < right */
@@ -54,9 +55,16 @@ void bignum_div(BigNum *q, BigNum *r, BigNum *left, BigNum *right)
      /* so left > right */
 
      bignum_alloc_zero(&nq, qlen);
+     if (r && (r->max_length < right->length)) {
+          bignum_realloc(r, right->length);
+     }
 
      if (right->length == 1) {
-          bignum_ndiv2(&nq, &sr, left, right->digits[0]);
+          bignum_ndiv2(nq.digits, &sr,
+                       left->digits, left->length,
+                       right->digits[0]);
+          nq.length = qlen;
+          bignum_fix_length(&nq);
           if (q) {
                bignum_free(q);
                q->length = nq.length;
@@ -69,7 +77,20 @@ void bignum_div(BigNum *q, BigNum *r, BigNum *left, BigNum *right)
           }
      }
      else {
-          bignum_ndiv(&nq, r, left, right);
+          if (r) {
+               bignum_ndiv(nq.digits, r->digits,
+                           left->digits, left->length,
+                           right->digits, right->length);
+               r->length = right->length;
+               bignum_fix_length(r);
+          }
+          else{
+               bignum_ndiv(nq.digits, NULL,
+                           left->digits, left->length,
+                           right->digits, right->length);
+          }
+          nq.length = qlen;
+          bignum_fix_length(&nq);
           if (q) {
                bignum_free(q);
                q->length = nq.length;

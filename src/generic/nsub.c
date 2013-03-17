@@ -4,48 +4,39 @@
 #include "../natural.h"
 
 /* left >= right */
-
-void bignum_nsub(BigNum *res, BigNum *left, BigNum *right)
+void bignum_nsub(SHORT_INT_T *res,
+                 SHORT_INT_T *left, unsigned sleft,
+                 SHORT_INT_T *right, unsigned sright)
 {
      SHORT_INT_T t, k;
-     unsigned res_length;
      int i;
 
      k = 0;
-     res_length = 0;
-     for (i = 0; i < right->length; ++i) {
-          t = left->digits[i] - right->digits[i] - k;
-          k = (k ? t >= left->digits[i] : t > left->digits[i]);
-          res->digits[i] = t;
-          
-          if (res->digits[i]) {
-               ++res_length;
-          }
+     for (i = 0; i < sright; ++i) {
+          t = left[i] - right[i] - k;
+          k = (k ? t >= left[i] : t > left[i]);
+          res[i] = t;
      }
-     for (; i < left->length; ++i) {
-          t = left->digits[i] - k;
-          k = (t > left->digits[i]);
-          res->digits[i] = t;
-          if (res->digits[i]) {
-               ++res_length;
-          }
+     for (; i < sleft; ++i) {
+          t = left[i] - k;
+          k = (t > left[i]);
+          res[i] = t;
      }
-     res->length = res_length;
 }
 
-void bignum_nsub2(BigNum *res, BigNum *left, SHORT_INT_T right)
+void bignum_nsub2(SHORT_INT_T *res,
+                  SHORT_INT_T *left, unsigned sleft,
+                  SHORT_INT_T right)
 {
      SHORT_INT_T k;
      int i;
 
      i=0;
-     k = (left->digits[i] < right); /* will overflow happen? */
-     res->digits[i] = left->digits[i] - right;
-     for (i=1; i < left->length; ++i) {
-          res->digits[i] = left->digits[i] - k;
-          k = (~0u == res->digits[i]); /* overflow? */
+     k = (left[i] < right); /* will overflow happen? */
+     res[i] = left[i] - right;
+     for (i=1; i < sleft; ++i) {
+          res[i] = left[i] - k;
+          k = (~0u == res[i]); /* overflow? */
      }
-     /* reduce length if most significant digit is zero */
-     res->length = left->length - (0 == res->digits[i-1]);
 }
 

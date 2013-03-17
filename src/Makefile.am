@@ -8,14 +8,14 @@ AM_YFLAGS = -d
 
 bin_PROGRAMS = bignums
 
-GCCFLAGS = -Wall -Werror
+GCCFLAGS = -Wall
 AM_CPPFLAGS = $(GCCFLAGS)
 AM_CFLAGS = $(GCCFLAGS)
 AM_CCASFLAGS = $(GCCFLAGS)
 
 bignums_SOURCES = alg.l parser.y bignum.h natural.h integer.h zinit.c zio.c	\
-                  addorsub.h zadd.c zsub.c zmul.c zdiv.c zpower.c zlogic.c	\
-                  zasgn.c memory.h memory.c test.h
+                  addorsub.h zadd.c zsub.c zmul.c zdiv.c zshift.c zpower.c	\
+                  zlogic.c zasgn.c memory.h memory.c test.h
 
 EXTRA_bignums_SOURCES = generic/test.c     x86_64/test.s arm/test.s	\
                         generic/ndiv.c     x86_64/ndiv.c \

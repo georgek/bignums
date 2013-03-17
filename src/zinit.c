@@ -71,8 +71,16 @@ void bignum_init_string(BigNum *bignum, char *string)
           t = *segend;
           *segend = '\0';
           dig = strtoul(segbeg, NULL, 10);
-          bignum_nmul2(bignum, bignum, GRPOW10);
-          bignum_nadd2(bignum, bignum, dig);
+          bignum_nmul2(bignum->digits,
+                       bignum->digits, bignum->length,
+                       GRPOW10);
+          bignum->length = bignum->length + 1;
+          bignum_fix_length(bignum);
+          bignum_nadd2(bignum->digits,
+                       bignum->digits, bignum->length,
+                       dig);
+          bignum->length = bignum->length + 1;
+          bignum_fix_length(bignum);
      }
 }
 

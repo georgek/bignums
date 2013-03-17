@@ -19,20 +19,52 @@
 
 #include "bignum.h"
 
-void bignum_nadd(BigNum *res, BigNum *left, BigNum *right);
-void bignum_nadd2(BigNum *res, BigNum *left, SHORT_INT_T right);
+/* result has sleft+1 places */
+void bignum_nadd(SHORT_INT_T *res,
+                 SHORT_INT_T *left, unsigned sleft,
+                 SHORT_INT_T *right, unsigned sright);
+void bignum_nadd2(SHORT_INT_T *res,
+                  SHORT_INT_T *left, unsigned sleft,
+                  SHORT_INT_T right);
 
-void bignum_nsub(BigNum *res, BigNum *left, BigNum *right);
-void bignum_nsub2(BigNum *res, BigNum *left, SHORT_INT_T right);
+/* result has sleft places */
+void bignum_nsub(SHORT_INT_T *res,
+                 SHORT_INT_T *left, unsigned sleft,
+                 SHORT_INT_T *right, unsigned sright);
+void bignum_nsub2(SHORT_INT_T *res,
+                  SHORT_INT_T *left, unsigned sleft,
+                  SHORT_INT_T right);
 
-void bignum_nmul(BigNum *res, BigNum *left, BigNum *right);
-void bignum_nmul2(BigNum *res, BigNum *left, SHORT_INT_T right);
-void bignum_ndiv(BigNum *q, BigNum *r, BigNum *left, BigNum *right);
-void bignum_ndiv2(BigNum *q, SHORT_INT_T *r, BigNum *left, SHORT_INT_T right);
+/* there must be no overlap between res and either left or right */
+/* result has sleft + sright places */
+void bignum_nmul(SHORT_INT_T *res,
+                 SHORT_INT_T *left, unsigned sleft,
+                 SHORT_INT_T *right, unsigned sright);
+void bignum_nmul2(SHORT_INT_T *res,
+                  SHORT_INT_T *left, unsigned sleft,
+                  SHORT_INT_T right);
+/* there must be no overlap between q and r and either left or right */
+/* quotient has m - n + 1 places, remainder has n places */
+void bignum_ndiv(SHORT_INT_T *q, SHORT_INT_T *r,
+                 SHORT_INT_T *left, unsigned m,
+                 SHORT_INT_T *right, unsigned n);
+void bignum_ndiv2(SHORT_INT_T *q, SHORT_INT_T *r,
+                  SHORT_INT_T *left, unsigned m,
+                  SHORT_INT_T right);
+/* void bignum_ndiv(BigNum *q, BigNum *r, BigNum *left, BigNum *right); */
+/* void bignum_ndiv2(BigNum *q, SHORT_INT_T *r, BigNum *left, SHORT_INT_T right); */
 
 /* binary shifts */
-void bignum_lshift(BigNum *p, unsigned count);
-void bignum_rshift(BigNum *p, unsigned count);
+/* result has sp + count/WORD_LENGTH + 1 places */
+void bignum_nlshift(SHORT_INT_T *res,
+                    SHORT_INT_T *p, unsigned sp,
+                    unsigned count);
+/* result has sp places */
+void bignum_nrshift(SHORT_INT_T *res,
+                    SHORT_INT_T *p, unsigned sp,
+                    unsigned count);
+/* void bignum_lshift(BigNum *p, unsigned count); */
+/* void bignum_rshift(BigNum *p, unsigned count); */
 
 /* full word multiplication and division */
 
@@ -51,7 +83,7 @@ void dig_div(SHORT_INT_T *q, SHORT_INT_T *r,
 int nlz(unsigned x);
 
 /* three way compare (assumes same length) */
-int bignum_ncmp(BigNum left, BigNum right);
+int bignum_ncmp(SHORT_INT_T *left, SHORT_INT_T *right, unsigned s);
 
 #endif /* H_NATURAL */
 

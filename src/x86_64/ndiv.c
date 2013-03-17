@@ -2,72 +2,61 @@
 /* x86_64 version */
 
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "../bignum.h"
 #include "../natural.h"
+#include "../integer.h"
 #include "../memory.h"
 
-void bignum_ndiv(BigNum *q, BigNum *r, BigNum *left, BigNum *right)
+void bignum_ndiv(SHORT_INT_T *q, SHORT_INT_T *r,
+                 SHORT_INT_T *left, unsigned m,
+                 SHORT_INT_T *right, unsigned n)
 {
-     BigNum *oq = NULL, nq = *q;
-     BigNum leftn, rightn;      /* normalised forms */
-     SHORT_INT_T qhat, rhat;    /* guesses */
+     SHORT_INT_T *leftn, *rightn; /* normalised forms */
+     SHORT_INT_T qhat, rhat;      /* guesses */
      SHORT_INT_T pu, pl;
-     unsigned s, m, n;
+     unsigned s;
      int i,j;
      SHORT_INT_T t,t2,k,k2;
-
-     m = left->length;
-     n = right->length;
-
-     nq.length = m - n + 1;
-     
-     if (q == left || q == right) {
-          /* need to setup new bignum so we don't clobber left or right */
-          oq = q;
-          nq.max_length = nq.length;
-          nq.digits = malloc(sizeof(SHORT_INT_T)*nq.max_length);
-     }
 
      /* Normalise by shifting right left just enough so that its high-order
       * bit is on, and shift left by the same amount. Make sure to increase
       * the length of left by 1. */
 
-     s = nlz(right->digits[n - 1]);
-     leftn = bignum_copy(left);
-     rightn = bignum_copy(right);
-     bignum_lshift(&leftn, s);
-     bignum_lshift(&rightn, s);
-     if (leftn.length == m) {
-          bignum_realloc(&leftn, m+1);
-     }
+     s = nlz(right[n - 1]);
+     leftn = malloc(sizeof(SHORT_INT_T)*m + 1);
+     rightn = malloc(sizeof(SHORT_INT_T)*n + 1);
+     bignum_nlshift(leftn, left, m, s);
+     bignum_nlshift(rightn, right, n, s);
 
-     for (j = nq.length - 1; j >= 0; --j) {
+     for (j = m - n; j >= 0; --j) {
           /* compute estimate of qhat of q[j] */
           /* dig_div(&qhat, &rhat, */
           /*         leftn.digits[j+n], leftn.digits[j+n-1], */
           /*         rightn.digits[n-1]); */
-          if (leftn.digits[j+n] < rightn.digits[n-1]) {
+          if (leftn[j+n] < rightn[n-1]) {
                asm volatile ("div %[d]"
                              : [q] "=a" (qhat), [r] "=d" (rhat)
-                             : [u] "d" (leftn.digits[j+n]),
-                               [l] "a" (leftn.digits[j+n-1]),
-                               [d] "Q" (rightn.digits[n-1])
+                             : [u] "d" (leftn[j+n]),
+                               [l] "a" (leftn[j+n-1]),
+                               [d] "Q" (rightn[n-1])
                     );
           }
           else {
                /* qhat would overflow, set qhat <- b-1 and rhat <-
                 * u_(j+n-1) */
                qhat = ~0u;
-               rhat = rightn.digits[n-1];
+               rhat = leftn[j+n-1];
           }
+
      again:
           /* At this point, qhat < b; now we do the test(s) on v_(n-2). */
-          dig_mul(&pu, &pl, qhat, rightn.digits[n-2]);
-          if (pu > rhat || (pu == rhat && pl > leftn.digits[j+n-2])) {
+          dig_mul(&pu, &pl, qhat, rightn[n-2]);
+          if (pu > rhat || (pu == rhat && pl > leftn[j+n-2])) {
                --qhat;
-               rhat = rhat + rightn.digits[n-1];
-               if (rhat >= rightn.digits[n-1]) {
+               rhat = rhat + rightn[n-1];
+               if (rhat >= rightn[n-1]) {
                     /* didn't overflow */
                     goto again;
                }
@@ -78,68 +67,62 @@ void bignum_ndiv(BigNum *q, BigNum *r, BigNum *left, BigNum *right)
           for (i =0; i < n; ++i) {
                t = k;
                /* (k, t)_b <- v_(i) * qhat + k*/
-               dig_mulandadd(&k, &t, rightn.digits[i], qhat);
-               t2 = leftn.digits[i+j] - t - k2;
-               k2 = (k2 ? t2 >= leftn.digits[i+j] : t2 > leftn.digits[i+j]);
-               leftn.digits[i+j] = t2;
+               dig_mulandadd(&k, &t, rightn[i], qhat);
+               t2 = leftn[i+j] - t - k2;
+               k2 = (k2 ? t2 >= leftn[i+j] : t2 > leftn[i+j]);
+               leftn[i+j] = t2;
           }
-          t2 = leftn.digits[i+j] - k - k2;
-          k2 = (k2 ? t2 >= leftn.digits[i+j] : t2 > leftn.digits[i+j]);
-          leftn.digits[i+j] = t2;
+          t2 = leftn[i+j] - k - k2;
+          k2 = (k2 ? t2 >= leftn[i+j] : t2 > leftn[i+j]);
+          leftn[i+j] = t2;
 
-          nq.digits[j] = qhat;
+          q[j] = qhat;
           /* if result of mul and sub was negative we need to add back */
           if (k2) {
-               nq.digits[j] = nq.digits[j] - 1;
+               q[j] = q[j] - 1;
                k = 0;
                for (i = 0; i < n; ++i) {
-                    t = leftn.digits[i+j] + rightn.digits[i] + k;
-                    k = (k ? t <= leftn.digits[i+j] : t < leftn.digits[i+j]);
-                    leftn.digits[i+j] = t;
+                    t = leftn[i+j] + rightn[i] + k;
+                    k = (k ? t <= leftn[i+j] : t < leftn[i+j]);
+                    leftn[i+j] = t;
                }
-               leftn.digits[i+j] = leftn.digits[i+j] + k;
+               leftn[i+j] = leftn[i+j] + k;
           }
-     }
-
-     /* work out real size of nq */
-     if (nq.digits[nq.length - 1] == 0) {
-          nq.length--;
      }
 
      /* unnormalise the remainder */
-     bignum_rshift(&leftn, s);
      if (r) {
-          bignum_free(r);
-          *r = leftn;
+          bignum_nrshift(r, leftn, n, s);
+          /* leftn might be n+1 digits long even though r is definitely n */
+          r[n-1] += (leftn[n] << (WORD_LENGTH - s))
+               & (-(signed)s >> (WORD_LENGTH-1));
      }
 
-     *q = nq;
-     bignum_free(oq);
+     free(leftn);
+     free(rightn);
 }
 
-void bignum_ndiv2(BigNum *q, SHORT_INT_T *r, BigNum *left, SHORT_INT_T right)
+void bignum_ndiv2(SHORT_INT_T *q, SHORT_INT_T *r,
+                  SHORT_INT_T *left, unsigned m,
+                  SHORT_INT_T right)
 {
      int i;
      SHORT_INT_T t, k;
 
      k = 0;
-     q->length = left->length;
-     /* start with most significant digit, which may become zero */
-     i = left->length - 1;
-     t = left->digits[i];
-     q->digits[i] = t/right;
-     k = t - q->digits[i]*right;
-     if (0 == q->digits[i]) {
-          --(q->length);
-     }
+
+     i = m - 1;
+     t = left[i];
+     q[i] = t/right;
+     k = t - q[i]*right;
      for (i = i - 1; i >= 0; --i) {
           /* 2 full word / full word => full word division */
           /* dig_div(&(q->digits[i]), &k, */
           /*         k, left->digits[i], */
           /*         right); */
           asm volatile ("div %[d]"
-                        : [q] "=a" (q->digits[i]), [r] "=d" (k)
-                        : [u] "d" (k), [l] "a" (left->digits[i]),
+                        : [q] "=a" (q[i]), [r] "=d" (k)
+                        : [u] "d" (k), [l] "a" (left[i]),
                           [d] "Q" (right)
                );
      }
@@ -179,7 +162,8 @@ void dig_div(SHORT_INT_T *q, SHORT_INT_T *r,
      vn1 = right >> 16;         // Break divisor up into
      vn0 = right & 0xFFFF;      // two 16-bit digits.
 
-     un32 = (uleft << s) | (lleft >> WORD_LENGTH - s) & (-s >> (WORD_LENGTH-1));
+     un32 = (uleft << s)
+          | ((lleft >> (WORD_LENGTH - s)) & (-s >> (WORD_LENGTH-1)));
      un10 = lleft << s;         // Shift dividend left.
 
      un1 = un10 >> WORD_LENGTH/2; // Break right half of
