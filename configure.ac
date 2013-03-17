@@ -25,6 +25,11 @@ NLOGIC_OBJ='generic/nlogic.$(OBJEXT)'
 NMUL_OBJ='generic/nmul.$(OBJEXT)'
 NSHIFT_OBJ='generic/nshift.$(OBJEXT)'
 NSUB_OBJ='generic/nsub.$(OBJEXT)'
+
+AC_ARG_ENABLE([arch],
+    AS_HELP_STRING([--disable-arch], [Disable arch specific optimisations.]))
+
+AS_IF([test "x$enable_arch" != "xno"], [
 case $host in
   arm*-*-linux*)
     TEST_OBJ='arm/test.$(OBJEXT)'
@@ -40,7 +45,8 @@ AC_SUBST([NADD_OBJ])
 AC_SUBST([NLOGIC_OBJ])
 AC_SUBST([NMUL_OBJ])
 AC_SUBST([NSHIFT_OBJ])
-AC_SUBST([NSUB_OBJ])
+AC_SUBST([NSUB_OBJ])            
+])
 
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile src/Makefile])
