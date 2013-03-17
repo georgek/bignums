@@ -19,7 +19,7 @@ bignums_SOURCES = alg.l parser.y bignum.h natural.h integer.h zinit.c zio.c	\
 
 EXTRA_bignums_SOURCES = generic/test.c     x86_64/test.s arm/test.s	\
                         generic/ndiv.c     x86_64/ndiv.c \
-			generic/nadd.c \
+			generic/nadd.c     x86_64/nadd.s \
 			generic/nlogic.c \
 			generic/nmul.c     x86_64/nmul.c \
 			generic/nshift.c \
