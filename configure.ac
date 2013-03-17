@@ -1,8 +1,3 @@
-dnl This file is part of Integrator
-dnl (C) 2010 George Kettleborough
-dnl All rights reserved (at least until the project is finished)
-dnl 2010 Computer science final year project
-
 # prelude
 AC_INIT([bignums], [1.0], [g.kettleborough@uea.ac.uk])
 AC_CONFIG_SRCDIR([src/bignum.h])
