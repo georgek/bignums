@@ -95,7 +95,7 @@ void bignum_ndiv(SHORT_INT_T *q, SHORT_INT_T *r,
           bignum_nrshift(r, leftn, n, s);
           /* leftn might be n+1 digits long even though r is definitely n */
           r[n-1] += (leftn[n] << (WORD_LENGTH - s))
-               & (-(signed)s >> (WORD_LENGTH-1));
+               & (-(signed long)s >> (WORD_LENGTH-1));
      }
 
      free(leftn);
