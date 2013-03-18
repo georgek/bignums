@@ -80,7 +80,7 @@ void dig_div(SHORT_INT_T *q, SHORT_INT_T *r,
              SHORT_INT_T right);
 
 /* number of leading zeros function */
-int nlz(unsigned long x);
+int nlz(SHORT_INT_T x);
 
 /* three way compare (assumes same length) */
 int bignum_ncmp(SHORT_INT_T *left, SHORT_INT_T *right, unsigned s);

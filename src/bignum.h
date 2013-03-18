@@ -14,8 +14,6 @@
 /* and the argument type for printf */
 #define PRINT_LI(var) printf("%lu", var)
 
-/* short int type for storage */
-#define SHORT_INT_T unsigned long int
 /* signed version for checking sign of bignum */
 /* and its argument for printf */
 #define PRINT_SI(var) printf("%lu", var)
@@ -25,6 +23,8 @@
 
 /* generic settings that should work on 32 bit systems */
 #ifdef SYSTEM_GENERIC
+   /* short int type for storage */
+   #define SHORT_INT_T unsigned int
    /* radix of half words */
    #define SRADIX  0x10000
    /* greatest power of ten that can fit in a word */
@@ -39,6 +39,7 @@
 
 /* x86-64 */
 #ifdef SYSTEM_X86_64
+   #define SHORT_INT_T unsigned long int
    #define SRADIX  0x100000000u
    #define GRPOW10   10000000000000000000u
    #define GRPOW10DIGS 19
@@ -48,6 +49,7 @@
 
 /* ARM */
 #ifdef SYSTEM_ARM
+   #define SHORT_INT_T unsigned int
    #define SRADIX  0x10000
    #define GRPOW10   1000000000
    #define GRPOW10DIGS 9

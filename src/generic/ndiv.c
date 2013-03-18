@@ -130,10 +130,10 @@ value).
 The divisor is parameter v. The value returned is the quotient.
    Max line length is 57, to fit in hacker.book. */
 void dig_div(SHORT_INT_T *q, SHORT_INT_T *r,
-             SHORT_INT_T uleft, unsigned lleft,
+             SHORT_INT_T uleft, SHORT_INT_T lleft,
              SHORT_INT_T right) {
-     const unsigned b = SRADIX; // Number base (16 bits).
-     unsigned un1, un0,          // Norm. dividend LSD's.
+     const SHORT_INT_T b = SRADIX; // Number base (16 bits).
+     SHORT_INT_T un1, un0,         // Norm. dividend LSD's.
           vn1, vn0,              // Norm. divisor digits.
           q1, q0,                // Quotient digits.
           un32, un21, un10,      // Dividend digit pairs.
@@ -182,9 +182,9 @@ again2:
 }
 
 /* portable (but slow) way to count leading zeros */
-int nlz(unsigned x)
+int nlz(SHORT_INT_T x)
 {
-     unsigned s = ~(~0u>>1);
+     SHORT_INT_T s = ~(~0u>>1);
      int i = 0;
      while (!(x&s) && i < WORD_LENGTH) {
           ++i;

@@ -193,9 +193,9 @@ again2:
 }
 
 /* portable (but slow) way to count leading zeros */
-int nlz(unsigned long x)
+int nlz(SHORT_INT_T x)
 {
-     unsigned long s = ~(~0ul>>1);
+     SHORT_INT_T s = ~(~0ul>>1);
      int i = 0;
      while (!(x&s) && i < WORD_LENGTH) {
           ++i;
