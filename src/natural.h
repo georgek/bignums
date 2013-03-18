@@ -76,11 +76,11 @@ void dig_mul(SHORT_INT_T *ures, SHORT_INT_T *lres,
 
 /* does 2 full word / full word => full word division */
 void dig_div(SHORT_INT_T *q, SHORT_INT_T *r,
-             SHORT_INT_T uleft, unsigned lleft,
+             SHORT_INT_T uleft, SHORT_INT_T lleft,
              SHORT_INT_T right);
 
 /* number of leading zeros function */
-int nlz(unsigned x);
+int nlz(unsigned long x);
 
 /* three way compare (assumes same length) */
 int bignum_ncmp(SHORT_INT_T *left, SHORT_INT_T *right, unsigned s);

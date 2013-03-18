@@ -23,14 +23,14 @@ void bignum_nlshift(SHORT_INT_T *res,
      i = sp - 1;
      /* this will be zero if b_count = 0 */
      res[i] = (p[i-w_count-1] >> (WORD_LENGTH - b_count))
-          & (-(signed)b_count >> (WORD_LENGTH-1));
+          & (-(signed long)b_count >> (WORD_LENGTH-1));
           
      for (i = i - 1; i > w_count; --i) {
           res[i] = p[i-w_count] << b_count;
           /* If b_count is zero, nothing changes here. The rhs of the & is to
            * make it work for computers that do mod WORD_LENGTH shifts */
           res[i] += (p[i-w_count-1] >> (WORD_LENGTH - b_count))
-               & (-(signed)b_count >> (WORD_LENGTH-1));
+               & (-(signed long)b_count >> (WORD_LENGTH-1));
      }
      res[i] = p[i-w_count] << b_count;
      /* fill in zeros */
@@ -52,7 +52,7 @@ void bignum_nrshift(SHORT_INT_T *res,
      for (i = 0; i < sp - w_count - 1; ++i) {
           res[i] = p[i+w_count] >> b_count;
           res[i] += (p[i+w_count+1] << (WORD_LENGTH - b_count))
-               & (-(signed)b_count >> (WORD_LENGTH-1));
+               & (-(signed long)b_count >> (WORD_LENGTH-1));
      }
      res[i] = p[i+w_count] >> b_count;
      /* fill in zeros */

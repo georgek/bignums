@@ -44,9 +44,9 @@ void bignum_ndiv(SHORT_INT_T *q, SHORT_INT_T *r,
                     );
           }
           else {
-               /* qhat would overflow, set qhat <- b-1 and rhat <-
-                * u_(j+n-1) */
-               qhat = ~0u;
+               /* qhat would overflow, which means that u_(j+n) = v_(n-1), so
+                * set qhat <- b-1 and rhat <- u_(j+n-1) */
+               qhat = ~0ul;
                rhat = leftn[j+n-1];
           }
 
@@ -95,7 +95,7 @@ void bignum_ndiv(SHORT_INT_T *q, SHORT_INT_T *r,
           bignum_nrshift(r, leftn, n, s);
           /* leftn might be n+1 digits long even though r is definitely n */
           r[n-1] += (leftn[n] << (WORD_LENGTH - s))
-               & (-(signed)s >> (WORD_LENGTH-1));
+               & (-(signed long)s >> (WORD_LENGTH-1));
      }
 
      free(leftn);
@@ -141,21 +141,21 @@ value).
 The divisor is parameter v. The value returned is the quotient.
    Max line length is 57, to fit in hacker.book. */
 void dig_div(SHORT_INT_T *q, SHORT_INT_T *r,
-             SHORT_INT_T uleft, unsigned lleft,
+             SHORT_INT_T uleft, SHORT_INT_T lleft,
              SHORT_INT_T right) {
-     const unsigned b = SRADIX; // Number base (16 bits).
-     unsigned un1, un0,          // Norm. dividend LSD's.
+     const SHORT_INT_T b = SRADIX; // Number base (16 bits).
+     SHORT_INT_T un1, un0,          // Norm. dividend LSD's.
           vn1, vn0,              // Norm. divisor digits.
           q1, q0,                // Quotient digits.
           un32, un21, un10,      // Dividend digit pairs.
           rhat;                  // A remainder.
-     int s;                      // Shift amount for norm.
+     long int s;                 // Shift amount for norm.
 
      if (uleft >= right) {      // If overflow, set rem.
           if (r != NULL) {      // to an impossible value,
-               *r = ~0;         // and return the largest
+               *r = ~0ul;         // and return the largest
           }
-          *q = ~0;}             // possible quotient.
+          *q = ~0ul;}             // possible quotient.
 
      s = nlz(right);            // 0 <= s <= 31.
      right = right << s;        // Normalize divisor.
@@ -193,9 +193,9 @@ again2:
 }
 
 /* portable (but slow) way to count leading zeros */
-int nlz(unsigned x)
+int nlz(unsigned long x)
 {
-     unsigned s = ~(~0u>>1);
+     unsigned long s = ~(~0ul>>1);
      int i = 0;
      while (!(x&s) && i < WORD_LENGTH) {
           ++i;
