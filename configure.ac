@@ -49,6 +49,18 @@ AC_SUBST([NMUL_OBJ])
 AC_SUBST([NSHIFT_OBJ])
 AC_SUBST([NSUB_OBJ])
 
+case $host in
+  arm*-*-linux*)
+    AC_DEFINE([SYSTEM_ARM], [1], [ARM system.])
+    ;;
+  x86_64-*-linux*)
+    AC_DEFINE([SYSTEM_X86_64], [1], [x86-64 system.])
+    ;;
+  *-*-*)
+    AC_DEFINE([SYSTEM_GENERIC], [1], [Generic system.])
+    ;;
+esac
+
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile src/Makefile])
 AC_OUTPUT
