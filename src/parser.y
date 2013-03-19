@@ -37,6 +37,9 @@ void time_fun(void (*fun)(BigNum *, BigNum *, BigNum*), char* name,
               BigNum *res, BigNum *op1, BigNum *op2);
 
 char* input_line = NULL;        /* line of input from readline */
+
+char* truestr = "True";
+char* falsestr = "False";
 %}
 
 %union {
@@ -46,7 +49,7 @@ char* input_line = NULL;        /* line of input from readline */
 %token <ival> INTEGER
 %token QUIT
 
-%left ','
+%left '<' '>' '='
 %left '+' '-'
 %left '*'
 %left '/' '%'
@@ -135,6 +138,63 @@ expression:     expression '+' expression
         |       '(' expression ')'
                         {
                              $$ = $2;
+                        }
+        |       expression '<' expression
+                        {
+                             bignum_init(&$$);
+                             clock_t time_bef = clock();
+                             if (bignum_lt($1,$3))
+                             {
+                                  printf("%s\n", truestr);
+                             }
+                             else {
+                                  printf("%s\n", falsestr);
+                             }
+                             if (timing) {
+                                  printf("Time taken for %s: %.2fs\n", "<",
+                                         (double)(clock() - time_bef)
+                                         /CLOCKS_PER_SEC);
+                             }
+                             bignum_free(&$1);
+                             bignum_free(&$3);
+                        }
+        |       expression '>' expression
+                        {
+                             bignum_init(&$$);
+                             clock_t time_bef = clock();
+                             if (bignum_gt($1,$3))
+                             {
+                                  printf("%s\n", truestr);
+                             }
+                             else {
+                                  printf("%s\n", falsestr);
+                             }
+                             if (timing) {
+                                  printf("Time taken for %s: %.2fs\n", ">",
+                                         (double)(clock() - time_bef)
+                                         /CLOCKS_PER_SEC);
+                             }
+                             bignum_free(&$1);
+                             bignum_free(&$3);
+                        }
+        |       expression '=' expression
+                        {
+                             bignum_init(&$$);
+                             clock_t time_bef = clock();
+                             if (bignum_eq($1,$3))
+                             {
+                                  printf("%s\n", truestr);
+                             }
+                             else {
+                                  printf("%s\n", falsestr);
+                             }
+                             if (timing) {
+                                  printf("Time taken for %s: %.2fs\n", "=",
+                                         (double)(clock() - time_bef)
+                                         /CLOCKS_PER_SEC);
+                             }
+                             bignum_free(&$1);
+                             bignum_free(&$3);
                         }
         |       INTEGER
                         {
