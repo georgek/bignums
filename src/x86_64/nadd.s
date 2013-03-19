@@ -17,38 +17,50 @@ bignum_nadd:
               pushq %rbp            # push old base pointer to stack
               movq  %rsp, %rbp      # copy stack pointer to base pointer
 
-              xorq  %r11, %r11      # i <- 0 (also clears carry)
-              pushfq
+              leaq  (%rdi,%r8,8), %rdi # res <- res + sright
+              leaq  (%rsi,%r8,8), %rsi # left <- left + sright
+              leaq  (%rcx,%r8,8), %rcx # right <- right + sright
+              movq  %r8, %r11
+              negq  %r11            # r11 <- -sright
+              clc
 
 nadd_main:
-              cmpq  %r8, %r11       # while i < sright
-              jge   nadd_rest
-
               movq  (%rsi,%r11,8), %rax
-              popfq
               adcq  (%rcx,%r11,8), %rax
-              pushfq
               movq  %rax, (%rdi,%r11,8)
-              incq  %r11
-              jmp   nadd_main
 
+              incq  %r11
+              
+              jnz   nadd_main
+
+nadd_rest_set:
+              pushfq                # push flags
+              movq  %rdx, %rax
+              subq  %r8, %rax       # rax <- sleft - sright
+              jz    nadd_last_set
+              leaq  (%rdi,%rax,8), %rdi # res <- res + sleft-sright
+              leaq  (%rsi,%rax,8), %rsi # left <- left + sleft-sright
+              movq  %rax, %r11
+              negq  %r11            # r11 <- -(sleft - sright)
+                                    # now r11 can be incremented sleft-sright
+                                    # times before it is zero
+              popfq
+              
 nadd_rest:
-              cmpq  %rdx, %r11      # while i <= sleft
-              jge   nadd_last
-
               movq  (%rsi,%r11,8), %rax
-              popfq
-              adcq  $0, %rax        # just adding on the carry
-              pushfq
-              movq  %rax, (%rdi,%r11,8)
-              incq  %r11
-              jmp   nadd_rest
-
-nadd_last:
-              xorq  %rax, %rax
-              popfq
               adcq  $0, %rax
               movq  %rax, (%rdi,%r11,8)
+
+              incq  %r11
+              
+              jnz   nadd_rest
+
+              jmp   nadd_last
+nadd_last_set:
+              popfq
+nadd_last:
+              movq  $0, (%rdi,%r11,8)
+              adcq  $0, (%rdi,%r11,8)
 
 nadd_end:
               movq  %rbp, %rsp      # move stack pointer back

@@ -16,34 +16,32 @@ bignum_nadd2:
               pushq %rbp            # push old base pointer to stack
               movq  %rsp, %rbp      # copy stack pointer to base pointer
               
-              movq  %rcx, %r11      # move right out of %rcx because we need it
-# r11 = right
-              movq  %rdx, %rcx      # now rcx can be decremented sleft times
-                                    # before it is zero
+              leaq  (%rdi,%rdx,8), %rdi # res <- res + sleft
+              leaq  (%rsi,%rdx,8), %rsi # left <- left + sleft
+              movq  %rdx, %r11
+              negq  %r11            # r11 <- -sleft
+                                    # we now increment r11 sleft times before
+                                    # it is zero
 
-              xorq  %r8, %r8        # use r8 to index (this also clears carry)
-              
-              movq  (%rsi), %rax
-              addq  %r11, %rax
-              movq  %rax, (%rdi)
+              movq  (%rsi,%r11,8), %rax
+              addq  %rcx, %rax
+              movq  %rax, (%rdi,%r11,8)
 
-              incq  %r8
-              decq  %rcx
+              incq  %r11
 
+              jz    nadd2_last      # if %r11 is now zero
 nadd2_main:
-              jrcxz nadd2_last
-
-              movq  (%rsi,%r8,8), %rax
+              movq  (%rsi,%r11,8), %rax
               adcq  $0, %rax
-              movq  %rax, (%rdi,%r8,8)
+              movq  %rax, (%rdi,%r11,8)
 
-              incq  %r8
-              decq  %rdx
+              incq  %r11
               
-              jmp   nadd2_main
+              jnz   nadd2_main      # if %r11 is not zero
 
 nadd2_last:
-              adcq  $0, (%rdi,%r8,8)
+              movq  $0, (%rdi,%r11,8)
+              adcq  $0, (%rdi,%r11,8)
 
 nadd2_end:
               movq  %rbp, %rsp      # move stack pointer back
