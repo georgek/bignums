@@ -58,6 +58,8 @@ AS_IF([test "x$enable_arch" != "xno"], [
        NADD_OBJ='x86_64/nadd.$(OBJEXT)'
        NADD2_OBJ='x86_64/nadd2.$(OBJEXT)'
        NCMP_OBJ='x86_64/ncmp.$(OBJEXT)'
+       NSUB_OBJ='x86_64/nsub.$(OBJEXT)'
+       NSUB2_OBJ='x86_64/nsub2.$(OBJEXT)'
        ;;
      *-*-*)
        AC_DEFINE([SYSTEM_GENERIC], [1], [Generic system.])
