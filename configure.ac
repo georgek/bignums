@@ -25,7 +25,7 @@ DIG_DIV_OBJ='generic/dig_div.$(OBJEXT)'
 NLZ_OBJ='generic/nlz.$(OBJEXT)'
 NADD_OBJ='generic/nadd.$(OBJEXT)'
 NADD2_OBJ='generic/nadd2.$(OBJEXT)'
-NLOGIC_OBJ='generic/nlogic.$(OBJEXT)'
+NCMP_OBJ='generic/ncmp.$(OBJEXT)'
 NMUL_OBJ='generic/nmul.$(OBJEXT)'
 NMUL2_OBJ='generic/nmul2.$(OBJEXT)'
 DIG_MUL_OBJ='generic/dig_mul.$(OBJEXT)'
@@ -68,7 +68,7 @@ AS_IF([test "x$enable_arch" != "xno"], [
    AC_SUBST([NLZ_OBJ])
    AC_SUBST([NADD_OBJ])
    AC_SUBST([NADD2_OBJ])
-   AC_SUBST([NLOGIC_OBJ])
+   AC_SUBST([NCMP_OBJ])
    AC_SUBST([NMUL_OBJ])
    AC_SUBST([NMUL2_OBJ])
    AC_SUBST([DIG_MUL_OBJ])

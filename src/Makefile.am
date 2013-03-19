@@ -24,7 +24,7 @@ EXTRA_bignums_SOURCES = generic/test.c          x86_64/test.s       arm/test.s	\
                         generic/nlz.c           x86_64/nlz.c \
 			generic/nadd.c          x86_64/nadd.s \
 			generic/nadd2.c	        x86_64/nadd2.s \
-			generic/nlogic.c \
+			generic/ncmp.c \
 			generic/nmul.c          x86_64/nmul.c \
 			generic/nmul2.c         x86_64/nmul2.c \
 			generic/dig_mul.c       x86_64/dig_mul.c \
@@ -35,7 +35,7 @@ EXTRA_bignums_SOURCES = generic/test.c          x86_64/test.s       arm/test.s	\
 			generic/nsub2.c
 
 OBJS = $(TEST_OBJ) $(NDIV_OBJ) $(NDIV2_OBJ) $(DIG_DIV_OBJ) $(NLZ_OBJ)		\
-       $(NADD_OBJ) $(NADD2_OBJ) $(NLOGIC_OBJ) $(NMUL_OBJ) $(NMUL2_OBJ)		\
+       $(NADD_OBJ) $(NADD2_OBJ) $(NCMP_OBJ) $(NMUL_OBJ) $(NMUL2_OBJ)		\
        $(DIG_MUL_OBJ) $(DIG_MULANDADD_OBJ) $(NLSHIFT_OBJ) $(NRSHIFT_OBJ)	\
        $(NSUB_OBJ) $(NSUB2_OBJ)
 
