@@ -1,4 +1,4 @@
-/* Logic for natural numbers. */
+/* Three way compare. */
 /* Generic version */
 
 #include "../bignum.h"
