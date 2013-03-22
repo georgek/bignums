@@ -25,8 +25,8 @@ EXTRA_bignums_SOURCES = generic/test.c          x86_64/test.s       arm/test.s	\
 			generic/nadd.c          x86_64/nadd.s \
 			generic/nadd2.c	        x86_64/nadd2.s \
 			generic/ncmp.c          x86_64/ncmp.s \
-			generic/nmul.c          x86_64/nmul.c \
-			generic/nmul2.c         x86_64/nmul2.c \
+			generic/nmul.c          x86_64/nmul.s \
+			generic/nmul2.c         x86_64/nmul2.s \
 			generic/dig_mul.c       x86_64/dig_mul.c \
 			generic/dig_mulandadd.c x86_64/dig_mulandadd.c \
 			generic/nlshift.c \
