@@ -48,6 +48,10 @@ void bignum_double_alloc(BigNum *bignum)
 
 void bignum_realloc(BigNum *bignum, unsigned max_length)
 {
+     if (bignum->max_length >= max_length) {
+          return;
+     }
+     
      bignum->max_length = max_length;
      bignum->digits = realloc(bignum->digits,
                               sizeof(SHORT_INT_T)*bignum->max_length);
