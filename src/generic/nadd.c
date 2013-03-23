@@ -19,7 +19,7 @@ void bignum_nadd(SHORT_INT_T *res,
      }
      for (; i < sleft; ++i) {
           res[i] = left[i] + k;
-          k = (0 == res[i]); /* overflow? */
+          k = (res[i] < k);     /* overflow? */
      }
      res[i] = k;
 }
