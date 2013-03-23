@@ -1,49 +1,45 @@
-# natural number addition
-# x86_64 version
+### natural number addition
+### x86_64 version
 
-# void bignum_nadd2(SHORT_INT_T *res,
-#                   SHORT_INT_T *left, unsigned sleft,
-#                   SHORT_INT_T right);
+### void bignum_nadd2(SHORT_INT_T *res,
+###                   SHORT_INT_T *left, unsigned sleft,
+###                   SHORT_INT_T right);
 
-# rdi = *res
-# rsi = *left
-# rdx = sleft
-# rcx = right
+### rdi = *res
+### rsi = *left
+### rdx = sleft
+### rcx = right
 
-              .Global bignum_nadd2
-              .Type bignum_nadd2,@function
+              .Global   bignum_nadd2
+              .Type     bignum_nadd2,@function
 bignum_nadd2:
-              pushq %rbp            # push old base pointer to stack
-              movq  %rsp, %rbp      # copy stack pointer to base pointer
-              
-              leaq  (%rdi,%rdx,8), %rdi # res <- res + sleft
-              leaq  (%rsi,%rdx,8), %rsi # left <- left + sleft
-              movq  %rdx, %r11
-              negq  %r11            # r11 <- -sleft
-                                    # we now increment r11 sleft times before
-                                    # it is zero
+        pushq   %rbp            # push old base pointer to stack
+        movq    %rsp,   %rbp    # copy stack pointer to base pointer
 
-              movq  (%rsi,%r11,8), %rax
-              addq  %rcx, %rax
-              movq  %rax, (%rdi,%r11,8)
+        xchgq   %rcx,   %rdx
+### rcx = sleft
+### rdx = right
 
-              incq  %r11
+        movq    (%rsi), %rax
+        addq    %rdx,   %rax
+        movq    %rax,   (%rdi)
+        loop    nadd2_main
+        jmp     nadd2_last
 
-              jz    nadd2_last      # if %r11 is now zero
 nadd2_main:
-              movq  (%rsi,%r11,8), %rax
-              adcq  $0, %rax
-              movq  %rax, (%rdi,%r11,8)
+        leaq    8(%rsi),        %rsi
+        leaq    8(%rdi),        %rdi
+        movq    (%rsi),         %rax
+        adcq    $0,             %rax
+        movq    %rax,           (%rdi)
 
-              incq  %r11
-              
-              jnz   nadd2_main      # if %r11 is not zero
+        loop    nadd2_main
 
 nadd2_last:
-              movq  $0, %rax
-              adcq  $0, %rax
+        movq    $0,     %rax
+        adcq    $0,     %rax
 
 nadd2_end:
-              movq  %rbp, %rsp      # move stack pointer back
-              popq  %rbp            # restore original base pointer
-              ret                   # pop value from top of stack and go there
+        movq    %rbp,   %rsp    # move stack pointer back
+        popq    %rbp            # restore original base pointer
+        ret                     # pop value from top of stack and go there
