@@ -40,8 +40,8 @@ nadd2_main:
               jnz   nadd2_main      # if %r11 is not zero
 
 nadd2_last:
-              movq  $0, (%rdi,%r11,8)
-              adcq  $0, (%rdi,%r11,8)
+              movq  $0, %rax
+              adcq  $0, %rax
 
 nadd2_end:
               movq  %rbp, %rsp      # move stack pointer back

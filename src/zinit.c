@@ -20,7 +20,7 @@ void bignum_init_string(BigNum *bignum, char *string)
 {
      int str_length;
      char *segbeg, *segend, t;
-     SHORT_INT_T dig;
+     SHORT_INT_T dig, k;
      
      /* set sign */
      if (*string == '-') {
@@ -76,11 +76,11 @@ void bignum_init_string(BigNum *bignum, char *string)
                        GRPOW10);
           bignum->length = bignum->length + 1;
           bignum_fix_length(bignum);
-          bignum_nadd2(bignum->digits,
-                       bignum->digits, bignum->length,
-                       dig);
-          bignum->length = bignum->length + 1;
-          bignum_fix_length(bignum);
+          k = bignum_nadd2(bignum->digits,
+                           bignum->digits, bignum->length,
+                           dig);
+          bignum->digits[bignum->length] = k;
+          bignum->length = bignum->length + k;
      }
 }
 

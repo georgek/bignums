@@ -4,9 +4,9 @@
 #include "../natural.h"
 
 /* left >= right */
-void bignum_nsub(SHORT_INT_T *res,
-                 SHORT_INT_T *left, unsigned sleft,
-                 SHORT_INT_T *right, unsigned sright)
+SHORT_INT_T bignum_nsub(SHORT_INT_T *res,
+                        SHORT_INT_T *left, unsigned sleft,
+                        SHORT_INT_T *right, unsigned sright)
 {
      SHORT_INT_T t, k;
      int i;
@@ -22,4 +22,5 @@ void bignum_nsub(SHORT_INT_T *res,
           k = (t > left[i]);
           res[i] = t;
      }
+     return k;
 }

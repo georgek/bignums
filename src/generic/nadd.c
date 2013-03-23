@@ -4,9 +4,9 @@
 #include "../bignum.h"
 #include "../natural.h"
 
-void bignum_nadd(SHORT_INT_T *res,
-                 SHORT_INT_T *left, unsigned sleft,
-                 SHORT_INT_T *right, unsigned sright)
+SHORT_INT_T bignum_nadd(SHORT_INT_T *res,
+                        SHORT_INT_T *left, unsigned sleft,
+                        SHORT_INT_T *right, unsigned sright)
 {
      SHORT_INT_T t, k;
      int i;
@@ -21,5 +21,5 @@ void bignum_nadd(SHORT_INT_T *res,
           res[i] = left[i] + k;
           k = (res[i] < k);     /* overflow? */
      }
-     res[i] = k;
+     return k;
 }

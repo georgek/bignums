@@ -59,8 +59,8 @@ nadd_rest:
 nadd_last_set:
               popfq
 nadd_last:
-              movq  $0, (%rdi,%r11,8)
-              adcq  $0, (%rdi,%r11,8)
+              movq  $0, %rax
+              adcq  $0, %rax
 
 nadd_end:
               movq  %rbp, %rsp      # move stack pointer back

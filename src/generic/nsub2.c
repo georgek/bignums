@@ -3,9 +3,9 @@
 
 #include "../natural.h"
 
-void bignum_nsub2(SHORT_INT_T *res,
-                  SHORT_INT_T *left, unsigned sleft,
-                  SHORT_INT_T right)
+SHORT_INT_T bignum_nsub2(SHORT_INT_T *res,
+                         SHORT_INT_T *left, unsigned sleft,
+                         SHORT_INT_T right)
 {
      SHORT_INT_T k;
      int i;
@@ -17,4 +17,5 @@ void bignum_nsub2(SHORT_INT_T *res,
           res[i] = left[i] - k;
           k = (~0u == res[i]); /* overflow? */
      }
+     return k;
 }

@@ -23,6 +23,7 @@ Error, need OPERATION_add or OPERATION_sub
 void FUNCTION (BigNum *res, BigNum *left, BigNum *right)
 {
      BigNum *t;
+     SHORT_INT_T k;
      /* check for zeros */
      if (bignum_is_zero(*left)) {
           bignum_set(res, right);
@@ -79,11 +80,12 @@ void FUNCTION (BigNum *res, BigNum *left, BigNum *right)
      }
      else {
          /* same signs */
-         bignum_nadd(res->digits,
-                     left->digits, left->length,
-                     right->digits, right->length);
-         res->length = left->length + 1;
-         bignum_fix_length(res);
+         k = bignum_nadd(res->digits,
+                         left->digits, left->length,
+                         right->digits, right->length);
+         /* we always allocate space for the carry so just set it */
+         res->digits[left->length] = k;
+         res->length = left->length + k;
          res->neg = left->neg;
      }
 }

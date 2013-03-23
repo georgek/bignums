@@ -29,7 +29,7 @@ bignum_nsub2:
 
               incq  %r11
 
-              jz    end_nsub2       # if %r11 is now zero
+              jz    nsub2_last  # if %r11 is now zero
 nsub2_main:
               movq  (%rsi,%r11,8), %rax
               sbbq  $0, %rax
@@ -39,7 +39,11 @@ nsub2_main:
               
               jnz   nsub2_main      # if %r11 is not zero
 
-end_nsub2:
+nsub2_last:
+              movq  $0, %rax
+              adcq  $0, %rax
+
+nsub2_end:
               movq  %rbp, %rsp      # move stack pointer back
               popq  %rbp            # restore original base pointer
               ret                   # pop value from top of stack and go there

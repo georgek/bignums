@@ -37,7 +37,7 @@ nsub_rest_set:
               pushfq                # push flags
               movq  %rdx, %rax
               subq  %r8, %rax       # rax <- sleft - sright
-              jz    nsub_end
+              jz    nsub_last_set
               leaq  (%rdi,%rax,8), %rdi # res <- res + sleft-sright
               leaq  (%rsi,%rax,8), %rsi # left <- left + sleft-sright
               movq  %rax, %r11
@@ -54,6 +54,12 @@ nsub_rest:
               incq  %r11
               
               jnz   nsub_rest
+
+nsub_last_set:
+              popfq
+nsub_last:
+              movq  $0, %rax
+              adcq  $0, %rax
 
 nsub_end:
               movq  %rbp, %rsp      # move stack pointer back

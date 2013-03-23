@@ -19,21 +19,21 @@
 
 #include "bignum.h"
 
-/* result has sleft+1 places */
-void bignum_nadd(SHORT_INT_T *res,
-                 SHORT_INT_T *left, unsigned sleft,
-                 SHORT_INT_T *right, unsigned sright);
-void bignum_nadd2(SHORT_INT_T *res,
-                  SHORT_INT_T *left, unsigned sleft,
-                  SHORT_INT_T right);
+/* result has sleft places and returns carry */
+SHORT_INT_T bignum_nadd(SHORT_INT_T *res,
+                        SHORT_INT_T *left, unsigned sleft,
+                        SHORT_INT_T *right, unsigned sright);
+SHORT_INT_T bignum_nadd2(SHORT_INT_T *res,
+                         SHORT_INT_T *left, unsigned sleft,
+                         SHORT_INT_T right);
 
-/* result has sleft places */
-void bignum_nsub(SHORT_INT_T *res,
-                 SHORT_INT_T *left, unsigned sleft,
-                 SHORT_INT_T *right, unsigned sright);
-void bignum_nsub2(SHORT_INT_T *res,
-                  SHORT_INT_T *left, unsigned sleft,
-                  SHORT_INT_T right);
+/* result has sleft places and returns borrow */
+SHORT_INT_T bignum_nsub(SHORT_INT_T *res,
+                        SHORT_INT_T *left, unsigned sleft,
+                        SHORT_INT_T *right, unsigned sright);
+SHORT_INT_T bignum_nsub2(SHORT_INT_T *res,
+                         SHORT_INT_T *left, unsigned sleft,
+                         SHORT_INT_T right);
 
 /* there must be no overlap between res and either left or right */
 /* result has sleft + sright places */
