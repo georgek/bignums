@@ -22,8 +22,8 @@ void bignum_ndiv(SHORT_INT_T *q, SHORT_INT_T *r,
       * the length of left by 1. */
 
      s = nlz(right[n - 1]);
-     leftn = malloc(sizeof(SHORT_INT_T)*m + 1);
-     rightn = malloc(sizeof(SHORT_INT_T)*n + 1);
+     leftn = malloc(sizeof(SHORT_INT_T)*(m + 1));
+     rightn = malloc(sizeof(SHORT_INT_T)*(n + 1));
      bignum_nlshift(leftn, left, m, s);
      bignum_nlshift(rightn, right, n, s);
 
