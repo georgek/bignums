@@ -7,6 +7,8 @@
 #include <string.h>
 #include <limits.h>
 #include <time.h>
+#include <setjmp.h>
+#include <signal.h>
 
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -24,6 +26,7 @@ void yyerror(char *s)
      fprintf(stderr, "%s\n", s);
 }
 
+sigjmp_buf return_to_prompt;
 char *rl_gets(int lineno);
 void initialise_readline();
 void finish_readline();
@@ -204,12 +207,19 @@ expression:     expression '+' expression
 
 %%
 
+void handle_interrupt (int signum)
+{
+     signal(SIGINT, handle_interrupt);
+     siglongjmp(return_to_prompt, 1);
+}
+
 int main (int argc, char *argv[])
 {
      int parseret = 0;
      unsigned lineno = 1;
 
      initialise_readline();
+     signal(SIGINT, handle_interrupt);
 
      /* limits */
      printf("These are the limits:\n"
@@ -219,9 +229,13 @@ int main (int argc, char *argv[])
             UINT_MAX, UINT_MAX,
             ULONG_MAX, ULONG_MAX,
             USHRT_MAX, USHRT_MAX);
+     printf("^C to stop a command, ^D to exit.\n");
      
      /* user input prompt */
      while (1) {
+          if (sigsetjmp(return_to_prompt, 1) == 1) {
+               printf("\nStopped...\n");
+          }
           input_line = rl_gets(lineno);
           if (input_line == NULL) {
                /* EOF entered, normal exit */
