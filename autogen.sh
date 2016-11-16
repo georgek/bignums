@@ -1,5 +1,5 @@
-#! /bin/sh
+#!/bin/sh -e
 
-aclocal \
-&& automake --add-missing \
-&& autoconf
+test -n "$srcdir" || srcdir=`dirname "$0"`
+test -n "$srcdir" || srcdir=.
+autoreconf --force --install --verbose "$srcdir"
